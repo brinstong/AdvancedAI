@@ -1,3 +1,9 @@
+;;;; Q-LEARNER		Essentials Algo 124
+;;;; LEARN-NIM		Discussion Reqd, Need to define better heuristics for better states / transition and reward table
+;;;; PLAY-NIM		seems easy
+;;;; BEST-ACTIONS	seems easy
+
+
 
 ;Reinforcement Learning Project
 ;
