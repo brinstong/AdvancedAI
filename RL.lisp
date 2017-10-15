@@ -311,8 +311,6 @@ them wins.  Reports the winner."
 	      (if (and (not (eq reward 1)) (not (eq reward -1)))
 		  (setf reward 0)
 		  )
-
-
 	      
 	      (q-learner q-table reward old-state my-move state gamma alpha-func iteration)
 	      
