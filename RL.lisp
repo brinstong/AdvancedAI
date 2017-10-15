@@ -312,6 +312,7 @@ them wins.  Reports the winner."
 		  (setf reward 0)
 		  )
 
+
 	      
 	      (q-learner q-table reward old-state my-move state gamma alpha-func iteration)
 	      
