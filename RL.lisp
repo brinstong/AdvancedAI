@@ -171,6 +171,14 @@ else val is returned instead when there's a tie. If state is outside the range, 
   (declare (ignore iteration)) ;; quiets compiler complaints
   *basic-alpha*)
 
+(defun get-probability (new-state-index old-state-index action-index)
+  (if (= new-state-index (+ old-state-index (+ action-index 1)))
+    0.8 0.2))
+
+(defun get-reward (current-state-index heap-size)
+  (cond ((= (1+ current-state-index) (1- heap-size)) -1)
+    ((= (1+ current-state-index) heap-size) 1)
+    (t 0)))
 
 (defun q-learner (q-table reward current-state action next-state gamma alpha-func iteration)
   "Modifies the q-table and returns it.  alpha-func is a function which must be called
