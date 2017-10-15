@@ -1,3 +1,9 @@
+    
+;;;; LEARN-NIM		Discussion Reqd, Need to define better heuristics for better states / transition and reward table
+;;;; PLAY-NIM		seems easy
+;;;; BEST-ACTIONS	seems easy
+
+
 
 ;Reinforcement Learning Project
 ;
@@ -197,32 +203,7 @@ to provide the current alpha value."
   (setf (aref q-table current-state action)
     (+ (get-reward current-state (- (num-states q-table) 6))
     (* (gamma) (get-future-utility current-state action q-table))))
-)
-
-
-;; Top-level nim learning algorithm.  The function works roughly like this...
-;;
-;; Make a q table.  Hint: make it 6 states larger than needed.  Can you see why?
-;; Iterations times:
-;;   Set state to 0  (no sticks removed from heap yet)
-;;   Loop:
-;;       old state <- state
-;;       Determine and make my move, update state
-;;       If I lost, set my reward to -1
-;;       Determine and make my opponent's move, update state
-;;       If the opponent lost, set my reward to +1
-;;       If no reward has been set yet, set it to 0
-;;       Update q table with the reward, old-state, my move, and current ("next") state
-;;       If new state is bigger than the heap size, exit loop
-;; Return q table
-
-(defun learn-nim (heap-size gamma alpha-func num-iterations)
-  "Returns a q-table after learning how to play nim"
-
-  ;;; IMPLEMENT ME
-  )
-
-
+))
 
 (defun ask-if-user-goes-first ()
   "Returns true if the user wants to go first"
@@ -257,6 +238,108 @@ them wins.  Reports the winner."
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; Top-level nim learning algorithm.  The function works roughly like this...
+;;
+;; Make a q table.  Hint: make it 6 states larger than needed.  Can you see why?
+;; Iterations times:
+;;   Set state to 0  (no sticks removed from heap yet)
+;;   Loop:
+;;       old state <- state
+;;       Determine and make my move, update state
+;;       If I lost, set my reward to -1
+;;       Determine and make my opponent's move, update state
+;;       If the opponent lost, set my reward to +1
+;;       If no reward has been set yet, set it to 0
+;;       Update q table with the reward, old-state, my move, and current ("next") state
+;;       If new state is bigger than the heap size, exit loop
+;; Return q table
+
+
+(defun learn-nim (heap-size gamma alpha-func num-iterations)
+  "Returns a q-table after learning how to play nim"
+  ;;; IMPLEMENT ME
+  
+  (let* ((state 0)
+	old-state
+	(q-table (make-q-table (+ heap-size 6) 3))
+	my-move
+	reward
+	opponents-move 
+	
+	 )
+
+    (loop for iteration from 1 to num-iterations do
+    
+
+	 (loop while (< state heap-size) do
+	      (setf old-state state)
+	      (setf my-move (max-action q-table state))
+
+	      (if (>= state heap-size)
+		  (setf reward -1)
+		  )
+
+	      (setf opponents-move (max-action q-table state)) 
+	      (setf state (+ state (+ opponents-move 1)))
+
+	      (if (>= state heap-size)
+		  (setf reward 1)
+		  )
+
+	      (if (and (not (eq reward 1)) (not (eq reward -1)))
+		  (setf reward 0)
+		  )
+	      
+	      (q-learner q-table reward old-state my-move state gamma alpha-func iteration)
+	      
+	      
+
+	 
+	 )
+
+     )
+    
+  )
+  
+  
+  
+)
+
+ (learn-nim 22 0.1 #'basic-alpha 50000)
+;; sbcl
 ;; example:
 ;; 
 ;; (setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
