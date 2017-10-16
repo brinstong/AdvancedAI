@@ -188,22 +188,20 @@ else val is returned instead when there's a tie. If state is outside the range, 
 
 (defun get-future-utility (current-state-index action-index q-table)
 ;; using Algorithm number 123
-  (let (future-utility 0)
-    (dotimes ((state-index current-state-index) (num-states q-table))
-      (future-utility (+ future-utility
+  (let* ((future-utility 0))
+    (setf state-index current-state-index)
+    (dotimes (state-index (num-states q-table))
+      (setf future-utility (+ future-utility
         (* (get-probability state-index current-state-index action-index)
-          (max-q state-index)))))))
+          (max-q q-table state-index)))))))
 
 (defun q-learner (q-table reward current-state action next-state gamma alpha-func iteration)
   "Modifies the q-table and returns it.  alpha-func is a function which must be called
 to provide the current alpha value."
-
-  ;;; IMPLEMENT ME
-
   (setf (aref q-table current-state action)
     (+ (get-reward current-state (- (num-states q-table) 6))
-    (* (gamma) (get-future-utility current-state action q-table))))
-))
+    (* gamma (get-future-utility current-state action q-table))))
+)
 
 (defun ask-if-user-goes-first ()
   "Returns true if the user wants to go first"
@@ -338,7 +336,7 @@ them wins.  Reports the winner."
   
 )
 
- (learn-nim 22 0.1 #'basic-alpha 50000)
+(learn-nim 22 0.1 #'basic-alpha 50000)
 ;; sbcl
 ;; example:
 ;; 
