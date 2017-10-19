@@ -185,6 +185,26 @@ to provide the current alpha value."
   ;;; IMPLEMENT ME
 
 
+  (let (
+	 (alpha (funcall alpha-func iteration))
+        )
+
+    
+
+;    (print q-table)
+    
+     
+	  
+    (setf (aref q-table current-state action)
+	  (+ (* (- 1 alpha) (aref q-table current-state action))
+	     (* alpha (+ reward (* gamma (max-q q-table next-state))))
+	  )
+    )
+    
+    
+    q-table
+  )
+  
 
 
 )
@@ -214,7 +234,46 @@ then has the user play back and forth with the game until one of
 them wins.  Reports the winner."
 
   ;;; IMPLEMENT ME
+
+  (let (player
+	(state 0)
+	) 
+
+    (if (ask-if-user-goes-first)
+	(setf player 0) ;user
+	(setf player 1) ;computer
+    )
+    
+    (loop
+
+       (if (eq player 0)
+	   (let ((user-action (make-user-move)))
+
+	     (setf state (+ state (+ 1 user-action)))
+	     
+	     (setf player 1)
+	     )
+	   (let ((computer-action (max-action q-table state)))
+
+	     (setf state (+ state (+ 1 computer-action)))	     
+	     
+	     (setf player 0)
+	     )
+       )
+       
+
+       (when (< heap-size 1)
+	 (if (player 1)
+	     (print "You Lose")
+	     (print "You Win")
+	 )
+	 (return)
+       )
+    )
+
+
   )
+)
 
 
 (defun best-actions (q-table)
@@ -222,41 +281,30 @@ them wins.  Reports the winner."
   ;; hint: see optional value in max-action function
 
   ;;; IMPLEMENT ME
+
+  (let ((output-list '())
+	max-act
+	)
+
+    (dotimes (i (num-states q-table))
+
+      (setf max-act (max-action q-table i -1))
+
+      (if (<= max-act 0)
+	  (setf output-list (append output-list (list '-)))
+	  (setf output-list (append output-list (list max-act)))
+	  
+      )
+	     
+	     
+     )
+    
+
+    output-list
+   )
+  
+   
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -294,6 +342,7 @@ them wins.  Reports the winner."
     
 
 	 (loop while (< state heap-size) do
+;	      (print state)
 	      (setf old-state state)
 	      (setf my-move (max-action q-table state))
 
@@ -312,7 +361,7 @@ them wins.  Reports the winner."
 		  (setf reward 0)
 		  )
 	      
-	      (q-learner q-table reward old-state my-move state gamma alpha-func iteration)
+	      (setf q-table (q-learner q-table reward old-state my-move state gamma alpha-func iteration))
 	      
 	      
 
@@ -320,6 +369,8 @@ them wins.  Reports the winner."
 	 )
 
      )
+
+    q-table
     
   )
   
@@ -327,7 +378,8 @@ them wins.  Reports the winner."
   
 )
 
- (learn-nim 22 0.1 #'basic-alpha 50000)
+;(learn-nim 22 0.1 #'basic-alpha 50000)
+(print (learn-nim 22 0.1 #'basic-alpha 50000))
 ;; sbcl
 ;; example:
 ;; 

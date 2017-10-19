@@ -1,0 +1,2558 @@
+; SLIME 2.19; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 15 OCT 2017 01:07:53 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.068
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:11:00 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.038
+
+NIL 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:13:50 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+
+; in: DEFUN LEARN-NIM
+;     (Q-TABLE)
+; 
+; caught STYLE-WARNING:
+;   undefined function: Q-TABLE
+; 
+; compilation unit finished
+;   Undefined function:
+;     Q-TABLE
+;   caught 13 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.035
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:15:49 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.029
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:16:16 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.031
+
+#2A((0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)) 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:18:22 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       (BLOCK Q-LEARNER
+;         "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA-FUNC is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.027
+
+0 
+2 
+3 
+6 
+7 
+10 
+13 
+15 
+17 
+20 
+#2A((0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)) 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:24:45 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (FUNCALL ALPHA-FUNC)))
+;         (PRINT ALPHA)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           (PRINT ALPHA))))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 11 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.035
+
+0 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:24:59 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (EVAL ALPHA-FUNC)))
+;         (PRINT ALPHA)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           (PRINT ALPHA))))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 11 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.027
+
+0 
+#<FUNCTION BASIC-ALPHA> 
+1 
+#<FUNCTION BASIC-ALPHA> 
+4 
+#<FUNCTION BASIC-ALPHA> 
+6 
+#<FUNCTION BASIC-ALPHA> 
+7 
+#<FUNCTION BASIC-ALPHA> 
+9 
+#<FUNCTION BASIC-ALPHA> 
+11 
+#<FUNCTION BASIC-ALPHA> 
+13 
+#<FUNCTION BASIC-ALPHA> 
+15 
+#<FUNCTION BASIC-ALPHA> 
+17 
+#<FUNCTION BASIC-ALPHA> 
+20 
+#<FUNCTION BASIC-ALPHA> 
+#2A((0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)
+    (0 0 0)) 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:25:47 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (EVAL ALPHA-FUNC)))
+;         (PRINT ALPHA)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           (PRINT ALPHA))))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 11 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.031
+
+0 
+#<FUNCTION BASIC-ALPHA> 
+3 
+#<FUNCTION BASIC-ALPHA> 
+6 
+#<FUNCTION BASIC-ALPHA> 
+8 
+#<FUNCTION BASIC-ALPHA> 
+11 
+#<FUNCTION BASIC-ALPHA> 
+12 
+#<FUNCTION BASIC-ALPHA> 
+15 
+#<FUNCTION BASIC-ALPHA> 
+16 
+#<FUNCTION BASIC-ALPHA> 
+18 
+#<FUNCTION BASIC-ALPHA> 
+21 
+#<FUNCTION BASIC-ALPHA> 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:26:08 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (LET* ((ALPHA (EVAL ALPHA-FUNC)))
+;       )
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (EVAL ALPHA-FUNC)))
+;         ))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           )))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 12 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.031
+
+0 
+3 
+6 
+7 
+10 
+12 
+15 
+17 
+20 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:27:38 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (FUNCALL ALPHA-FUNC)))
+;         (PRINT ALPHA)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           (PRINT ALPHA))))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ITERATION is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 11 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.028
+
+0 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:29:01 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* ((ALPHA (FUNCALL ALPHA-FUNC ITERATION)))
+;         (PRINT ALPHA)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* ((ALPHA #))
+;           (PRINT ALPHA))))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 10 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.026
+
+0 
+0.5 
+3 
+0.5 
+6 
+0.5 
+8 
+0.5 
+11 
+0.5 
+12 
+0.5 
+15 
+0.5 
+17 
+0.5 
+20 
+0.5 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 09:34:20 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (LET* (GAMMA
+;            (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;            Q-TABLE
+;            REWARD
+;            CURRENT-STATE
+;            ACTION
+;            NEXT-STATE)
+;       )
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         ))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           )))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 17 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.036
+
+0 
+3 
+6 
+9 
+10 
+12 
+15 
+17 
+19 
+CL-USER> (setf x '((1 2 3)(4 5 6)(7 8 9)))
+; No value
+CL-USER> 
+; No value
+CL-USER> 
+; No value
+CL-USER> (make-array (list 3 3))
+#2A((0 0 0) (0 0 0) (0 0 0))
+CL-USER> (setf x (make-array (list 3 3)))
+
+;     (SETF X (MAKE-ARRAY (LIST 3 3)))
+; ==>
+;   (SETQ X (MAKE-ARRAY (LIST 3 3)))
+; 
+; caught WARNING:
+;   undefined variable: X
+; 
+; compilation unit finished
+;   Undefined variable:
+;     X
+;   caught 1 WARNING condition
+#2A((0 0 0) (0 0 0) (0 0 0))
+CL-USER> x
+#2A((0 0 0) (0 0 0) (0 0 0))
+CL-USER> (setf (aref x 1 0) 1)
+
+; in: SETF (AREF X 1 0)
+;     (LET* ((#:X532 X) (#:NEW1 1))
+;       (FUNCALL #'(SETF AREF) #:NEW1 #:X532 1 0))
+; 
+; caught WARNING:
+;   undefined variable: X
+; 
+; compilation unit finished
+;   Undefined variable:
+;     X
+;   caught 1 WARNING condition
+1
+CL-USER> x
+#2A((0 0 0) (1 0 0) (0 0 0))
+CL-USER> (setf (aref x 2 1) 1)
+
+; in: SETF (AREF X 2 1)
+;     (LET* ((#:X533 X) (#:NEW1 1))
+;       (FUNCALL #'(SETF AREF) #:NEW1 #:X533 2 1))
+; 
+; caught WARNING:
+;   undefined variable: X
+; 
+; compilation unit finished
+;   Undefined variable:
+;     X
+;   caught 1 WARNING condition
+1
+CL-USER> x
+#2A((0 0 0) (1 0 0) (0 1 0))
+CL-USER> (aref x 1 1)
+0
+CL-USER> (aref x 1 0)
+1
+
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 10:25:25 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; note: deleting unreachable code
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         (SETF (AREF Q-TABLE CURRENT-STATE ACTION) (+ # #))
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (SETF # #)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; caught WARNING:
+;   Derived type of Q-TABLE is
+;     (VALUES NULL &OPTIONAL),
+;   conflicting with its asserted type
+;     (ARRAY * (* *)).
+;   See also:
+;     The SBCL Manual, Node "Handling of Types"
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 1 WARNING condition
+;   caught 10 STYLE-WARNING conditions
+;   printed 1 note
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.035
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 11:44:06 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; note: deleting unreachable code
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         (SETF (AREF Q-TABLE CURRENT-STATE ACTION) (+ # #))
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (SETF # #)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; caught WARNING:
+;   Derived type of Q-TABLE is
+;     (VALUES NULL &OPTIONAL),
+;   conflicting with its asserted type
+;     (ARRAY * (* *)).
+;   See also:
+;     The SBCL Manual, Node "Handling of Types"
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 1 WARNING condition
+;   caught 10 STYLE-WARNING conditions
+;   printed 1 note
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.031
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 11:47:32 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     ((+ (* (- 1 ALPHA) (AREF Q-TABLE CURRENT-STATE ACTION))
+;         (* ALPHA (+ REWARD (* GAMMA #)))))
+; 
+; caught ERROR:
+;   illegal function call
+
+;     (LET* (GAMMA
+;            (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;            Q-TABLE
+;            REWARD
+;            CURRENT-STATE
+;            ACTION
+;            NEXT-STATE)
+;       (SETF (AREF Q-TABLE CURRENT-STATE ACTION) ((+ # #)))
+;       Q-TABLE)
+; ==>
+;   Q-TABLE
+; 
+; note: deleting unreachable code
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         (SETF (AREF Q-TABLE CURRENT-STATE ACTION) (#))
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (SETF # #)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 1 ERROR condition
+;   caught 14 STYLE-WARNING conditions
+;   printed 1 note
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.033
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 18 OCT 2017 11:50:28 PM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; note: deleting unreachable code
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         (SETF (AREF Q-TABLE CURRENT-STATE ACTION) (+ # #))
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (SETF # #)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; caught WARNING:
+;   Derived type of Q-TABLE is
+;     (VALUES NULL &OPTIONAL),
+;   conflicting with its asserted type
+;     (ARRAY * (* *)).
+;   See also:
+;     The SBCL Manual, Node "Handling of Types"
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 1 WARNING condition
+;   caught 10 STYLE-WARNING conditions
+;   printed 1 note
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.029
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 19 OCT 2017 12:00:41 AM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; note: deleting unreachable code
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET* (GAMMA
+;              (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;              Q-TABLE
+;              REWARD
+;              CURRENT-STATE
+;              ACTION
+;              NEXT-STATE)
+;         (AREF Q-TABLE CURRENT-STATE ACTION)
+;         (* (- 1 ALPHA) (AREF Q-TABLE CURRENT-STATE ACTION))
+;         (* ALPHA (+ REWARD (* GAMMA #)))
+;         (+ (* (- 1 ALPHA) (AREF Q-TABLE CURRENT-STATE ACTION))
+;            (* ALPHA (+ REWARD #)))
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET* (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (AREF Q-TABLE CURRENT-STATE ACTION)
+;           (* (- 1 ALPHA) (AREF Q-TABLE CURRENT-STATE ACTION))
+;           (* ALPHA (+ REWARD #))
+;           (+ (* # #) (* ALPHA #))
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+;     (AREF Q-TABLE CURRENT-STATE ACTION)
+; 
+; caught WARNING:
+;   Derived type of Q-TABLE is
+;     (VALUES NULL &OPTIONAL),
+;   conflicting with its asserted type
+;     (ARRAY * (* *)).
+;   See also:
+;     The SBCL Manual, Node "Handling of Types"
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 1 WARNING condition
+;   caught 10 STYLE-WARNING conditions
+;   printed 1 note
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.052
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 19 OCT 2017 12:02:42 AM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (LET (GAMMA
+;           (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;           Q-TABLE
+;           REWARD
+;           CURRENT-STATE
+;           ACTION
+;           NEXT-STATE)
+;       (PRINT Q-TABLE)
+;       Q-TABLE)
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET (GAMMA
+;             (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;             Q-TABLE
+;             REWARD
+;             CURRENT-STATE
+;             ACTION
+;             NEXT-STATE)
+;         (PRINT Q-TABLE)
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (PRINT Q-TABLE)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 16 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.040
+
+0 
+NIL 
+3 
+NIL 
+5 
+NIL 
+8 
+NIL 
+11 
+NIL 
+13 
+NIL 
+16 
+NIL 
+19 
+NIL 
+20 
+NIL 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 19 OCT 2017 12:02:42 AM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (LET (GAMMA
+;           (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;           Q-TABLE
+;           REWARD
+;           CURRENT-STATE
+;           ACTION
+;           NEXT-STATE)
+;       (PRINT Q-TABLE)
+;       Q-TABLE)
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET (GAMMA
+;             (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;             Q-TABLE
+;             REWARD
+;             CURRENT-STATE
+;             ACTION
+;             NEXT-STATE)
+;         (PRINT Q-TABLE)
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           (PRINT Q-TABLE)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 16 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.036
+
+0 
+NIL 
+2 
+NIL 
+5 
+NIL 
+6 
+NIL 
+7 
+NIL 
+8 
+NIL 
+10 
+NIL 
+12 
+NIL 
+14 
+NIL 
+16 
+NIL 
+19 
+NIL 
+; compiling file "/home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp" (written 19 OCT 2017 12:04:04 AM):
+
+; file: /home/brin/Documents/CS687Assn/AdvancedAI/RL.lisp
+; in: DEFUN NUM-ACTIONS
+;     (DEFUN NUM-ACTIONS (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (SECOND (ARRAY-DIMENSIONS Q-TABLE)))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA NUM-ACTIONS
+;         (Q-TABLE &OPTIONAL STATE)
+;       "Returns the number of actions in a q-table"
+;       (BLOCK NUM-ACTIONS (SECOND (ARRAY-DIMENSIONS Q-TABLE))))
+; 
+; caught STYLE-WARNING:
+;   The variable STATE is defined but never used.
+
+; in: DEFUN Q-LEARNER
+;     (LET (GAMMA
+;           (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;           Q-TABLE
+;           REWARD
+;           CURRENT-STATE
+;           ACTION
+;           NEXT-STATE)
+;       Q-TABLE)
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ALPHA is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+
+;     (DEFUN Q-LEARNER
+;            (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;             ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+;   to provide the current alpha value."
+;       (LET (GAMMA
+;             (ALPHA (FUNCALL ALPHA-FUNC ITERATION))
+;             Q-TABLE
+;             REWARD
+;             CURRENT-STATE
+;             ACTION
+;             NEXT-STATE)
+;         Q-TABLE))
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA Q-LEARNER
+;         (Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE GAMMA ALPHA-FUNC
+;          ITERATION)
+;       "Modifies the q-table and returns it.  alpha-func is a function which must be called
+; to provide the current alpha value."
+;       (BLOCK Q-LEARNER
+;         (LET (GAMMA (ALPHA #) Q-TABLE REWARD CURRENT-STATE ACTION NEXT-STATE)
+;           Q-TABLE)))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable REWARD is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable CURRENT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable ACTION is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable NEXT-STATE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable GAMMA is defined but never used.
+
+; in: DEFUN PLAY-NIM
+;     (DEFUN PLAY-NIM (Q-TABLE HEAP-SIZE)
+;       "Plays a game of nim.  Asks if the user wants to play first,
+;   then has the user play back and forth with the game until one of
+;   them wins.  Reports the winner.")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA PLAY-NIM
+;         (Q-TABLE HEAP-SIZE)
+;       (BLOCK PLAY-NIM
+;         "Plays a game of nim.  Asks if the user wants to play first,
+; then has the user play back and forth with the game until one of
+; them wins.  Reports the winner."))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; caught STYLE-WARNING:
+;   The variable HEAP-SIZE is defined but never used.
+
+; in: DEFUN BEST-ACTIONS
+;     (DEFUN BEST-ACTIONS (Q-TABLE)
+;       "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)")
+; --> PROGN SB-IMPL::%DEFUN SB-IMPL::%DEFUN SB-INT:NAMED-LAMBDA 
+; ==>
+;   #'(SB-INT:NAMED-LAMBDA BEST-ACTIONS
+;         (Q-TABLE)
+;       (BLOCK BEST-ACTIONS
+;         "Returns a list of the best actions.  If there is no best action, this is indicated with a hyphen (-)"))
+; 
+; caught STYLE-WARNING:
+;   The variable Q-TABLE is defined but never used.
+; 
+; compilation unit finished
+;   caught 16 STYLE-WARNING conditions
+
+; /home/brin/Documents/CS687Assn/AdvancedAI/RL.fasl written
+; compilation finished in 0:00:00.033
+
+0 
+3 
+5 
+7 
+10 
+13 
+15 
+18 
+21 
+CL-USER> 
