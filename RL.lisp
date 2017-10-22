@@ -1,8 +1,5 @@
-    
-;;;; LEARN-NIM		Discussion Reqd, Need to define better heuristics for better states / transition and reward table
-;;;; PLAY-NIM		seems easy
-;;;; BEST-ACTIONS	seems easy
-
+;; check out q-learner function
+;; check out action mapping
 
 
 ;Reinforcement Learning Project
@@ -246,15 +243,19 @@ them wins.  Reports the winner."
     
     (loop
 
+       (format t "Current State : ~S~%"state)
+
+       
        (if (eq player 0)
 	   (let ((user-action (make-user-move)))
 
-	     (setf state (+ state (+ 1 user-action)))
+	     (setf state (+ state (+ 0 user-action)))
 	     
 	     (setf player 1)
 	     )
 	   (let ((computer-action (max-action q-table state)))
 
+	     (format t "Computer Played ~S~%"(+ 1 computer-action))
 	     (setf state (+ state (+ 1 computer-action)))	     
 	     
 	     (setf player 0)
@@ -262,8 +263,8 @@ them wins.  Reports the winner."
        )
        
 
-       (when (< heap-size 1)
-	 (if (player 1)
+       (when (>= state heap-size)
+	 (if (eq player 1)
 	     (print "You Lose")
 	     (print "You Win")
 	 )
@@ -379,18 +380,18 @@ them wins.  Reports the winner."
 )
 
 ;(learn-nim 22 0.1 #'basic-alpha 50000)
-(print (learn-nim 22 0.1 #'basic-alpha 50000))
+;(print (learn-nim 22 0.1 #'basic-alpha 50000))
 ;; sbcl
 ;; example:
 ;; 
-;; (setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
+ (setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
 ;;
 ;; to get the policy from this table:
 ;;
-;; (best-actions *my-q-table*)
+; (print (best-actions *my-q-table*))
 ;;
 ;; to play a game of your brain versus this q-table:
 ;;
-;; (play-nim *my-q-table* 22)   ;; need to provide the original heap size
+ (play-nim *my-q-table* 22)   ;; need to provide the original heap size
 ;;
 ;; You might try changing to some other function than #'basic-alpha...
