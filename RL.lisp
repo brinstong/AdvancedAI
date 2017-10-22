@@ -1,5 +1,4 @@
 ;; check out q-learner function
-;; check out action mapping
 
 
 ;Reinforcement Learning Project
@@ -340,30 +339,39 @@ them wins.  Reports the winner."
 	 )
 
     (loop for iteration from 1 to num-iterations do
-    
+
+	 (setf state 0)
 
 	 (loop while (< state heap-size) do
 ;	      (print state)
 	      (setf old-state state)
 	      (setf my-move (max-action q-table state))
 
+	      (setf state (+ state (+ 1 my-move)))
+	      
 	      (if (>= state heap-size)
 		  (setf reward -1)
+		  (progn
+		    (setf opponents-move (max-action q-table state)) 
+		    (setf state (+ state (+ opponents-move 1)))
+
+		    (if (>= state heap-size)
+			(setf reward 1)
+			)
+
+		    
+		  )
 		  )
 
-	      (setf opponents-move (max-action q-table state)) 
-	      (setf state (+ state (+ opponents-move 1)))
-
-	      (if (>= state heap-size)
-		  (setf reward 1)
-		  )
-
+	      
 	      (if (and (not (eq reward 1)) (not (eq reward -1)))
 		  (setf reward 0)
 		  )
 	      
 	      (setf q-table (q-learner q-table reward old-state my-move state gamma alpha-func iteration))
-	      
+
+;	      (format t "Iteration number : ~S"iteration)
+;	      (print q-table)
 	      
 
 	 
@@ -384,7 +392,9 @@ them wins.  Reports the winner."
 ;; sbcl
 ;; example:
 ;; 
- (setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
+(setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
+
+;(print *my-q-table*)
 ;;
 ;; to get the policy from this table:
 ;;
