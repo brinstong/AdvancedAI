@@ -1,8 +1,4 @@
-    
-;;;; LEARN-NIM		Discussion Reqd, Need to define better heuristics for better states / transition and reward table
-;;;; PLAY-NIM		seems easy
-;;;; BEST-ACTIONS	seems easy
-
+;; check out q-learner function
 
 
 ;Reinforcement Learning Project
@@ -198,9 +194,31 @@ else val is returned instead when there's a tie. If state is outside the range, 
 (defun q-learner (q-table reward current-state action next-state gamma alpha-func iteration)
   "Modifies the q-table and returns it.  alpha-func is a function which must be called
 to provide the current alpha value."
-  (setf (aref q-table current-state action)
-    (+ (get-reward current-state (- (num-states q-table) 6))
-    (* gamma (get-future-utility current-state action q-table))))
+
+  ;;; IMPLEMENT ME
+
+
+  (let (
+	 (alpha (funcall alpha-func iteration))
+        )
+
+    
+
+;    (print q-table)
+    
+     
+	  
+    (setf (aref q-table current-state action)
+	  (+ (* (- 1 alpha) (aref q-table current-state action))
+	     (* alpha (+ reward (* gamma (max-q q-table next-state))))
+	  )
+    )
+    
+    
+    q-table
+  )
+ 
+
 )
 
 (defun ask-if-user-goes-first ()
@@ -223,7 +241,50 @@ then has the user play back and forth with the game until one of
 them wins.  Reports the winner."
 
   ;;; IMPLEMENT ME
+
+  (let (player
+	(state 0)
+	) 
+
+    (if (ask-if-user-goes-first)
+	(setf player 0) ;user
+	(setf player 1) ;computer
+    )
+    
+    (loop
+
+       (format t "Current State : ~S~%"state)
+
+       
+       (if (eq player 0)
+	   (let ((user-action (make-user-move)))
+
+	     (setf state (+ state (+ 0 user-action)))
+	     
+	     (setf player 1)
+	     )
+	   (let ((computer-action (max-action q-table state)))
+
+	     (format t "Computer Played ~S~%"(+ 1 computer-action))
+	     (setf state (+ state (+ 1 computer-action)))	     
+	     
+	     (setf player 0)
+	     )
+       )
+       
+
+       (when (>= state heap-size)
+	 (if (eq player 1)
+	     (print "You Lose")
+	     (print "You Win")
+	 )
+	 (return)
+       )
+    )
+
+
   )
+)
 
 
 (defun best-actions (q-table)
@@ -231,41 +292,30 @@ them wins.  Reports the winner."
   ;; hint: see optional value in max-action function
 
   ;;; IMPLEMENT ME
+
+  (let ((output-list '())
+	max-act
+	)
+
+    (dotimes (i (num-states q-table))
+
+      (setf max-act (max-action q-table i -1))
+
+      (if (<= max-act 0)
+	  (setf output-list (append output-list (list '-)))
+	  (setf output-list (append output-list (list max-act)))
+	  
+      )
+	     
+	     
+     )
+    
+
+    output-list
+   )
+  
+   
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -300,35 +350,47 @@ them wins.  Reports the winner."
 	 )
 
     (loop for iteration from 1 to num-iterations do
-    
+
+	 (setf state 0)
 
 	 (loop while (< state heap-size) do
+;	      (print state)
 	      (setf old-state state)
 	      (setf my-move (max-action q-table state))
 
+	      (setf state (+ state (+ 1 my-move)))
+	      
 	      (if (>= state heap-size)
 		  (setf reward -1)
+		  (progn
+		    (setf opponents-move (max-action q-table state)) 
+		    (setf state (+ state (+ opponents-move 1)))
+
+		    (if (>= state heap-size)
+			(setf reward 1)
+			)
+
+		    
+		  )
 		  )
 
-	      (setf opponents-move (max-action q-table state)) 
-	      (setf state (+ state (+ opponents-move 1)))
-
-	      (if (>= state heap-size)
-		  (setf reward 1)
-		  )
-
+	      
 	      (if (and (not (eq reward 1)) (not (eq reward -1)))
 		  (setf reward 0)
 		  )
 	      
-	      (q-learner q-table reward old-state my-move state gamma alpha-func iteration)
-	      
+	      (setf q-table (q-learner q-table reward old-state my-move state gamma alpha-func iteration))
+
+;	      (format t "Iteration number : ~S"iteration)
+;	      (print q-table)
 	      
 
 	 
 	 )
 
      )
+
+    q-table
     
   )
   
@@ -336,18 +398,21 @@ them wins.  Reports the winner."
   
 )
 
-(learn-nim 22 0.1 #'basic-alpha 50000)
+;(learn-nim 22 0.1 #'basic-alpha 50000)
+;(print (learn-nim 22 0.1 #'basic-alpha 50000))
 ;; sbcl
 ;; example:
 ;; 
-;; (setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
+(setq *my-q-table* (learn-nim 22 0.1 #'basic-alpha 50000))
+
+;(print *my-q-table*)
 ;;
 ;; to get the policy from this table:
 ;;
-;; (best-actions *my-q-table*)
+; (print (best-actions *my-q-table*))
 ;;
 ;; to play a game of your brain versus this q-table:
 ;;
-;; (play-nim *my-q-table* 22)   ;; need to provide the original heap size
+ (play-nim *my-q-table* 22)   ;; need to provide the original heap size
 ;;
 ;; You might try changing to some other function than #'basic-alpha...
