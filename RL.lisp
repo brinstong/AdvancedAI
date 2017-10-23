@@ -173,6 +173,23 @@ else val is returned instead when there's a tie. If state is outside the range, 
   (declare (ignore iteration)) ;; quiets compiler complaints
   *basic-alpha*)
 
+(defun get-probability (new-state-index old-state-index action-index)
+  (if (= new-state-index (+ old-state-index (+ action-index 1)))
+    0.8 0.2))
+
+(defun get-reward (current-state-index heap-size)
+  (cond ((= (1+ current-state-index) (1- heap-size)) -1)
+    ((= (1+ current-state-index) heap-size) 1)
+    (t 0)))
+
+(defun get-future-utility (current-state-index action-index q-table)
+;; using Algorithm number 123
+  (let* ((future-utility 0))
+    (setf state-index current-state-index)
+    (dotimes (state-index (num-states q-table))
+      (setf future-utility (+ future-utility
+        (* (get-probability state-index current-state-index action-index)
+          (max-q q-table state-index)))))))
 
 (defun q-learner (q-table reward current-state action next-state gamma alpha-func iteration)
   "Modifies the q-table and returns it.  alpha-func is a function which must be called
@@ -200,15 +217,9 @@ to provide the current alpha value."
     
     q-table
   )
-  
-
+ 
 
 )
-
-
-
-
-
 
 (defun ask-if-user-goes-first ()
   "Returns true if the user wants to go first"
