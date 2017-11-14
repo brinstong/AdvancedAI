@@ -1774,5 +1774,4 @@ can be fed into NET-LEARN.  Also adds a bias unit of 0.5 to the input."
 ;(simple-generalization *wine* ...)  ;; pick appropriate values
 
 
-
-(format t "~%Output for : (k-fold-validation *voting-records* 2 10 1.0 5 5000) ~a" (k-fold-validation *voting-records* 2 10 1.0 5 5000))
+(format t "(k-fold-validation *voting-records* 2 10 1.0 5 5000) ~a" (k-fold-validation *voting-records* 2 10 1.0 5 5000))
