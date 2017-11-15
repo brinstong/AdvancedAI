@@ -198,7 +198,20 @@ new slot is created).  EQUALP is the test used for duplicates."
   
 
   ;(my-generate-list num #'tournament-select-one population fitnesses t)
-
+#|
+    (let (bag)
+    (while (< (length bag) num) bag
+      (let ((candidate (tournament-select-one population fitnesses)))
+	(unless (member candidate bag :test #'equalp)
+	  (push candidate bag)
+	  )
+	)
+      )
+    bag
+    )
+    
+|#
+  
   )
 
 
@@ -426,30 +439,17 @@ its fitness."
 
   ;; not sure regarding this but I am using number of t's as a measure of better fitness
 
-
   (let ((counter 0))
     (dotimes (index (length ind1))
-
-					; (print index)
-					; (print (nth index ind1))
-
-      
+      ; (print index)
+      ; (print (nth index ind1))
 
       (if(nth index ind1)
-	 (incf counter)
-	 
-	 )
-      
-      
+	 (incf counter)	 
+	 )            
       )
-
     counter
-
-    )
-  
-  
-
-  
+    )  
 )
 
 
