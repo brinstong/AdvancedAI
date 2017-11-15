@@ -1,4 +1,13 @@
-;; check out q-learner function
+;;Contributors :  Aniket Bhosale and Brinston Gonsalves
+
+
+
+
+;;;; We tried to extend the extend the assignment to 3 heap nim by converting the 2d array to 3d array and then creating the required support functions but got stuck with it while fetching the maximum q value from the 3d array and thus decided  to submit the existing working file.
+
+
+
+
 
 
 ;Reinforcement Learning Project
