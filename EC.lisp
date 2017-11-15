@@ -190,24 +190,6 @@ new slot is created).  EQUALP is the test used for duplicates."
     )
     output-list ; returns list of outputs.
 )
-
-
-  
-
-  ;(my-generate-list num #'tournament-select-one population fitnesses t)
-#|
-    (let (bag)
-    (while (< (length bag) num) bag
-      (let ((candidate (tournament-select-one population fitnesses)))
-	(unless (member candidate bag :test #'equalp)
-	  (push candidate bag)
-	  )
-	)
-      )
-    bag
-    )
-    
-|#
   
   )
 
@@ -243,27 +225,17 @@ prints that fitness and individual in a pleasing manner."
   
 )
 
-
-
 (defun my-generate-new-population (population fitnesses modifier selector)
-
-
-;  (print "mile 1")
-  #| 
-  (apply #'append
-    (mapcar modifier
-	     (funcall selector (/ (length population) 2) population fitnesses)
-	     (funcall selector (/ (length population) 2) population fitnesses)        
-    )
-
-    )
-  |#
-  
-  population
-;  (print "mile 2")
-   
-
+(let (new-population `())
+  (dotimes (counter (/ (length population) 2))
+    (setf selected-parents-list (funcall selector 2 population fitnesses))
+    (setf modified-children-list (apply modifier selected-parents-list))
+    (setf new-population (append modified-children-list new-population))
   )
+  (setf population new-population)
+  )
+  population
+)
 
 
 (defun my-final-printer (ind fit)
@@ -555,7 +527,7 @@ This is taken fro the CS580 class.
 
 (defun float-uniform-crossover (ind1 ind2)
 
-  
+
   (dotimes (n (length ind1))
     (if (>= *float-crossover-probability* (random 1.0)) ; randomly decides whether to perform crossover.
       (rotatef (elt ind1 n) (elt ind2 n)) ; swaps the two elements
@@ -579,6 +551,7 @@ This is taken fro the CS580 class.
       (if (random? *float-mutation-probability*)
         (progn
           (while (not (and (<= *float-min* (+ (elt ind counter) n)) (<= (+ (elt ind counter) n) *float-max*)))
+          nil
             (setf n (gaussian-random mean *float-mutation-variance*))
           )       
           (setf (elt ind counter) (+ (elt ind counter) n))
