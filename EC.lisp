@@ -1,7 +1,4 @@
-;; error on line 241
-
-
-
+;; Some problem with my-generate-new-population
 
 ;;; Project 1: Build a simple evolutionary computation system.
 
@@ -250,14 +247,23 @@ prints that fitness and individual in a pleasing manner."
 
 (defun my-generate-new-population (population fitnesses modifier selector)
 
-  
+
+;  (print "mile 1")
+  #| 
   (apply #'append
     (mapcar modifier
 	     (funcall selector (/ (length population) 2) population fitnesses)
 	     (funcall selector (/ (length population) 2) population fitnesses)        
     )
+
+    )
+  |#
+  
+  population
+;  (print "mile 2")
+   
+
   )
-)
 
 
 (defun my-final-printer (ind fit)
@@ -311,15 +317,13 @@ POP-SIZE, using various functions"
       
       (let ((fitnesses (mapcar evaluator population)))
 
-	(setf ind-fit-list (my-get-best-ind-fit population fitnesses best-ind best-fit)) 
-        (setf best-ind (first ind-fit-list))
+	(setf ind-fit-list (my-get-best-ind-fit population fitnesses best-ind best-fit))
+	(setf best-ind (first ind-fit-list))
         (setf best-fit (second ind-fit-list))
 	(funcall printer population fitnesses)
-	(setf population (copy-seq (my-generate-new-population population fitnesses modifier selector)))
+	(setf population (my-generate-new-population population fitnesses modifier selector))
 	
-      )
-
-      
+      )      
     )
 
    (my-final-printer best-ind best-fit)
@@ -463,6 +467,8 @@ its fitness."
 ;;; an example way to fire up the GA.  It should easily discover
 ;;; a 100% correct solution.
 
+#|
+
 (evolve 50 100
 	:setup #'boolean-vector-sum-setup
 	:creator #'boolean-vector-creator
@@ -471,6 +477,7 @@ its fitness."
         :evaluator #'boolean-vector-evaluator
 	:printer #'simple-printer)
 
+|#
 
 ;;;;;; FLOATING-POINT VECTOR GENETIC ALGORTITHM
 
@@ -511,6 +518,10 @@ its fitness."
 (defparameter *float-max* 5.12)   ;; likewise
 
 
+(defun my-randombw ()
+  (+ (random (- *float-max* *float-min*)) *float-min*)
+)
+
 (defun float-vector-creator ()
   "Creates a floating-point-vector *float-vector-length* in size, filled with
 random numbers in the range appropriate to the given problem"
@@ -518,6 +529,8 @@ random numbers in the range appropriate to the given problem"
     ;;; you might as well use random uniform numbers from *float-vector-min*
     ;;; to *float-vector-max*.  
 
+    (generate-list *float-vector-length* 'my-randombw)
+  
   )
 
 
@@ -525,6 +538,58 @@ random numbers in the range appropriate to the given problem"
 (defparameter *float-crossover-probability* 0.2)
 (defparameter *float-mutation-probability* 0.1)   ;; I just made up this number
 (defparameter *float-mutation-variance* 0.01)     ;; I just made up this number
+
+
+(defun gaussian-random (mean variance)
+  "Generates a random number under a gaussian distribution with the
+given mean and variance (using the Box-Muller-Marsaglia method)
+This is taken fro the CS580 class.
+"
+  (let ((x 0) (y 0) (w 0))
+    (while (not (and (< 0 w) (< w 1)))
+	   (setf x (- (random 2.0) 1.0))
+	   (setf y (- (random 2.0) 1.0))
+	   (setf w (+ (* x x) (* y y))))
+    (+ mean (* x (sqrt variance) (sqrt (* -2 (/ (log w) w)))))))
+
+
+(defun float-uniform-crossover (ind1 ind2)
+
+  
+  (dotimes (n (length ind1))
+    (if (>= *float-crossover-probability* (random 1.0)) ; randomly decides whether to perform crossover.
+      (rotatef (elt ind1 n) (elt ind2 n)) ; swaps the two elements
+    )
+  )
+  nil
+  )
+
+
+(defun gaussian-convolution (ind)
+  "Performs gaussian convolution mutation on the individual, modifying it in place.
+ Returns NIL."
+
+     
+  (dotimes 
+    (counter (length ind))
+    (let* (
+              (mean (/ (+ *float-min* *float-max*) 2))
+              (n (gaussian-random mean *float-mutation-variance*)) 
+          )
+      (if (random? *float-mutation-probability*)
+        (progn
+          (while (not (and (<= *float-min* (+ (elt ind counter) n)) (<= (+ (elt ind counter) n) *float-max*)))
+            (setf n (gaussian-random mean *float-mutation-variance*))
+          )       
+          (setf (elt ind counter) (+ (elt ind counter) n))
+        )
+      )
+    )
+  )
+  nil
+)
+
+
 (defun float-vector-modifier (ind1 ind2)
   "Copies and modifies ind1 and ind2 by crossing them over with a uniform crossover,
 then mutates the children.  *crossover-probability* is the probability that any
@@ -535,13 +600,40 @@ given allele in a child will mutate.  Mutation does gaussian convolution on the 
     ;;; Note: crossover is probably identical to the bit-vector crossover
     ;;; See "Gaussian Convolution" (Algorithm 11) in the book for mutation
 
+
+  (let* (
+          (ind-cpy1 (copy-seq ind1))
+          (ind-cpy2 (copy-seq ind2))
+	  )
+    (float-uniform-crossover ind-cpy1 ind-cpy2)
+    (gaussian-convolution ind-cpy1)
+    (gaussian-convolution ind-cpy2)
+    (list ind-cpy1 ind-cpy2)
+  )
+
+  
 )
 
 (defun float-vector-sum-evaluator (ind1)
   "Evaluates an individual, which must be a floating point vector, and returns
-its fitness."
+its fitness. I am assuming the fitness to be equal to the sum of all floats"
 
     ;;; IMPLEMENT ME
+
+   (let ((counter 0))
+    (dotimes (index (length ind1))
+      ; (print index)
+      ; (print (nth index ind1))
+
+      (setf counter (+ counter (nth index ind1)))
+      )
+    counter
+    )
+
+
+  
+  
+  
 )
 
 
@@ -557,7 +649,7 @@ and the floating-point ranges involved, etc.  I dunno."
 
 ;;; an example way to fire up the GA.  
 
-#|
+
 (evolve 50 100
 	:setup #'float-vector-sum-setup
 	:creator #'float-vector-creator
@@ -565,7 +657,7 @@ and the floating-point ranges involved, etc.  I dunno."
 	:modifier #'float-vector-modifier
         :evaluator #'float-vector-sum-evaluator
 	:printer #'simple-printer)
-|#
+
 
 
 
