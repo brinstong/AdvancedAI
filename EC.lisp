@@ -831,17 +831,42 @@ in function form (X) rather than just X."
 a tree of that size"
 
     ;;; IMPLEMENT ME
+    (setf tree-size (+ (random 19) 1))
+    (num-nodes (ptc2 tree-size))
   )
 
-
+(defun recursive-num-nodes (tree)
+    (format t "inside recursive : ~a~%" tree)
+    (format t "inside recursive length of tree : ~a~%" (length tree))
+      (if (queue-empty-p tree)
+        (progn
+          (format t "tree empty~%")
+          0
+        )
+        (progn
+          (let ((counter 1))
+            (+ counter (recursive-num-nodes (second tree)))
+            counter
+          )
+        )
+      )
+  )
 
 ;;; GP TREE MODIFICATION CODE
-
 (defun num-nodes (tree)
   "Returns the number of nodes in tree, including the root"
 
     ;;; IMPLEMENT ME
+    (format t "tree: ~a~%" tree)
+    (recursive-num-nodes tree)
+    
   )
+
+  
+
+  
+
+  ;; (gp-creator)
 
 
 (defun nth-subtree-parent (tree n)
