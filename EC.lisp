@@ -689,7 +689,7 @@ Error generated if the queue is empty."
 (defun random-argument-slot-dequeue (queue)
   (let* (argument-slot-dequeued)
     (setf argument-slot-dequeued (random-dequeue queue))
-    (format t "Argument slot dequeued: ~a~%" argument-slot-dequeued)
+    ;; (format t "Argument slot dequeued: ~a~%" argument-slot-dequeued)
     (while (not (queue-empty-p argument-slot-dequeued))
       nil
       (enqueue argument-slot-dequeued queue)
@@ -763,20 +763,20 @@ in function form (X) rather than just X."
 
   ;;; IMPLEMENT ME
 
-  (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
-  (setq *terminal-set* '(x))
+  ;; (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+  ;; (setq *terminal-set* '(x))
 
     (if (= size 1)
 
       (elt *terminal-set* (random (length *terminal-set*)))
 
       (progn
-        (format t "Inside else~%")
+        ;; (format t "Inside else~%")
         (setf q (make-queue))
         (setf root (make-queue))
         (setf root-element (elt *nonterminal-set* (random (length *nonterminal-set*))))
         (enqueue root-element root)
-        (format t "Root: ~a~%" root)
+        ;; (format t "Root: ~a~%" root)
         (setf count 1)
         (dotimes (child-arg-index (second root-element))
           (progn
@@ -785,16 +785,16 @@ in function form (X) rather than just X."
             (enqueue argument-q q)
           ) 
         )
-        (format t "Current Queue: ~a~%" q)
+        ;; (format t "Current Queue: ~a~%" q)
         (while (< (+ count (length q)) size)
           nil
           (setf s (random-argument-slot-dequeue q))
           (setf a (elt *nonterminal-set* (random (length *nonterminal-set*))))
-          (format t "Nonterminal picked up:~a~%" a)
+          ;; (format t "Nonterminal picked up:~a~%" a)
           (incf count)
           ;; (setf s (append s a))
           (enqueue a s)
-          (format t "Current Queue: ~a~%" q)
+          ;; (format t "Current Queue: ~a~%" q)
           (dotimes (child-arg-index (second a))
           (progn
             (setf argument-q (make-queue))
@@ -802,19 +802,19 @@ in function form (X) rather than just X."
             (enqueue argument-q q)
           ) 
         )
-        (format t "Current Queue after first while: ~a~%" q)
+        ;; (format t "Current Queue after first while: ~a~%" q)
         )
-        (format t "Before 2nd while~%" q)
+        ;; (format t "Before 2nd while~%" q)
         (while (not (queue-empty-p q))
           nil
-          (format t "Inside 2nd while~%" q)
+          ;; (format t "Inside 2nd while~%" q)
           (setf s (random-argument-slot-dequeue q))
           (setf a (make-queue))
           (setf a-element (elt *terminal-set* (random (length *terminal-set*))))
           (enqueue a-element a)
-          (format t "terminal ind picked: ~a~%" a)
+          ;; (format t "terminal ind picked: ~a~%" a)
           (enqueue a s)
-          (format t "Current Queue inside second while: ~a~%" q)
+          ;; (format t "Current Queue inside second while: ~a~%" q)
         )
         (format t "Root: ~a~%" root)
       ) 
@@ -822,7 +822,7 @@ in function form (X) rather than just X."
   )
 )
 
-  (ptc2 10)
+  ;; (ptc2 10)
 
 
 (defparameter *size-limit* 20)
