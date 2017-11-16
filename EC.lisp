@@ -190,24 +190,6 @@ new slot is created).  EQUALP is the test used for duplicates."
     )
     output-list ; returns list of outputs.
 )
-
-
-  
-
-  ;(my-generate-list num #'tournament-select-one population fitnesses t)
-#|
-    (let (bag)
-    (while (< (length bag) num) bag
-      (let ((candidate (tournament-select-one population fitnesses)))
-	(unless (member candidate bag :test #'equalp)
-	  (push candidate bag)
-	  )
-	)
-      )
-    bag
-    )
-    
-|#
   
   )
 
@@ -243,27 +225,17 @@ prints that fitness and individual in a pleasing manner."
   
 )
 
-
-
 (defun my-generate-new-population (population fitnesses modifier selector)
-
-
-;  (print "mile 1")
-  #| 
-  (apply #'append
-    (mapcar modifier
-	     (funcall selector (/ (length population) 2) population fitnesses)
-	     (funcall selector (/ (length population) 2) population fitnesses)        
-    )
-
-    )
-  |#
-  
-  population
-;  (print "mile 2")
-   
-
+(let (new-population `())
+  (dotimes (counter (/ (length population) 2))
+    (setf selected-parents-list (funcall selector 2 population fitnesses))
+    (setf modified-children-list (apply modifier selected-parents-list))
+    (setf new-population (append modified-children-list new-population))
   )
+  (setf population new-population)
+  )
+  population
+)
 
 
 (defun my-final-printer (ind fit)
@@ -555,7 +527,7 @@ This is taken fro the CS580 class.
 
 (defun float-uniform-crossover (ind1 ind2)
 
-  
+
   (dotimes (n (length ind1))
     (if (>= *float-crossover-probability* (random 1.0)) ; randomly decides whether to perform crossover.
       (rotatef (elt ind1 n) (elt ind2 n)) ; swaps the two elements
@@ -579,6 +551,7 @@ This is taken fro the CS580 class.
       (if (random? *float-mutation-probability*)
         (progn
           (while (not (and (<= *float-min* (+ (elt ind counter) n)) (<= (+ (elt ind counter) n) *float-max*)))
+          nil
             (setf n (gaussian-random mean *float-mutation-variance*))
           )       
           (setf (elt ind counter) (+ (elt ind counter) n))
@@ -650,6 +623,8 @@ and the floating-point ranges involved, etc.  I dunno."
 ;;; an example way to fire up the GA.  
 
 
+#|
+
 (evolve 50 100
 	:setup #'float-vector-sum-setup
 	:creator #'float-vector-creator
@@ -658,6 +633,7 @@ and the floating-point ranges involved, etc.  I dunno."
         :evaluator #'float-vector-sum-evaluator
 	:printer #'simple-printer)
 
+|#
 
 
 
@@ -708,6 +684,33 @@ Error generated if the queue is empty."
   (let ((index (random (length queue))))
     (swap (elt queue index) (elt queue (1- (length queue))))
     (vector-pop queue)))
+
+;; I am stating empty list `() as an argument slot
+(defun random-argument-slot-dequeue (queue)
+  (let* (argument-slot-dequeued)
+    (setf argument-slot-dequeued (random-dequeue queue))
+    ;; (format t "Argument slot dequeued: ~a~%" argument-slot-dequeued)
+    (while (not (queue-empty-p argument-slot-dequeued))
+      nil
+      (enqueue argument-slot-dequeued queue)
+      (setf argument-slot-dequeued (random-dequeue queue))
+    )
+    argument-slot-dequeued
+  )
+)
+
+(defun random-argument-slot (queue)
+  (let* (argument-slot)
+    (setf argument-slot (elt queue (random (length queue))))
+  
+    (while (not (queue-empty-p argument-slot))
+      nil
+      (setf argument-slot (elt queue (random (length queue))))
+    )
+    (format t "Argument slot picked: ~a~%" argument-slot)
+    argument-slot
+  )
+)
 
 (defun ptc2 (size)
   "If size=1, just returns a random terminal.  Else builds and
@@ -760,7 +763,66 @@ in function form (X) rather than just X."
 
   ;;; IMPLEMENT ME
 
+  ;; (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+  ;; (setq *terminal-set* '(x))
+
+    (if (= size 1)
+
+      (elt *terminal-set* (random (length *terminal-set*)))
+
+      (progn
+        ;; (format t "Inside else~%")
+        (setf q (make-queue))
+        (setf root (make-queue))
+        (setf root-element (elt *nonterminal-set* (random (length *nonterminal-set*))))
+        (enqueue root-element root)
+        ;; (format t "Root: ~a~%" root)
+        (setf count 1)
+        (dotimes (child-arg-index (second root-element))
+          (progn
+            (setf argument-q (make-queue))
+            (enqueue argument-q root)
+            (enqueue argument-q q)
+          ) 
+        )
+        ;; (format t "Current Queue: ~a~%" q)
+        (while (< (+ count (length q)) size)
+          nil
+          (setf s (random-argument-slot-dequeue q))
+          (setf a (elt *nonterminal-set* (random (length *nonterminal-set*))))
+          ;; (format t "Nonterminal picked up:~a~%" a)
+          (incf count)
+          ;; (setf s (append s a))
+          (enqueue a s)
+          ;; (format t "Current Queue: ~a~%" q)
+          (dotimes (child-arg-index (second a))
+          (progn
+            (setf argument-q (make-queue))
+            (enqueue argument-q root)
+            (enqueue argument-q q)
+          ) 
+        )
+        ;; (format t "Current Queue after first while: ~a~%" q)
+        )
+        ;; (format t "Before 2nd while~%" q)
+        (while (not (queue-empty-p q))
+          nil
+          ;; (format t "Inside 2nd while~%" q)
+          (setf s (random-argument-slot-dequeue q))
+          (setf a (make-queue))
+          (setf a-element (elt *terminal-set* (random (length *terminal-set*))))
+          (enqueue a-element a)
+          ;; (format t "terminal ind picked: ~a~%" a)
+          (enqueue a s)
+          ;; (format t "Current Queue inside second while: ~a~%" q)
+        )
+        (format t "Root: ~a~%" root)
+      ) 
+
   )
+)
+
+  ;; (ptc2 10)
 
 
 (defparameter *size-limit* 20)
