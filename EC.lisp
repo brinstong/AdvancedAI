@@ -1,4 +1,3 @@
-;; Some problem with my-generate-new-population
 
 ;;; Project 1: Build a simple evolutionary computation system.
 
@@ -622,9 +621,7 @@ and the floating-point ranges involved, etc.  I dunno."
 
 ;;; an example way to fire up the GA.  
 
-
 #|
-
 (evolve 50 100
 	:setup #'float-vector-sum-setup
 	:creator #'float-vector-creator
@@ -831,6 +828,7 @@ in function form (X) rather than just X."
 a tree of that size"
 
     ;;; IMPLEMENT ME
+  (ptc2 (random 20))
   )
 
 
@@ -841,6 +839,18 @@ a tree of that size"
   "Returns the number of nodes in tree, including the root"
 
     ;;; IMPLEMENT ME
+
+  (let ((count 0))
+    (dotimes (i (list-length tree))
+
+      (if (listp (nth i tree))
+	  (setf count (+ count (num-nodes (nth i tree))))
+	  (incf count)
+	  
+	  )      
+      )
+    count
+    )  
   )
 
 
@@ -879,6 +889,152 @@ If n is bigger than the number of nodes in the tree
 
     ;;; IMPLEMENT ME
 
+  (if (<= n 0)
+      (return-from nth-subtree-parent nil)             
+      )
+
+  (if (> n (- (num-nodes tree) 1))
+      (return-from nth-subtree-parent (- n (num-nodes tree)))        
+      (let* ((node-at-depth (my-get-node-at-depth tree n))
+	 (par-ind (my-get-parent-of (car node-at-depth)  tree))
+	 (parent-node (car par-ind))
+	 subtree
+	 )
+    ;; subtree at my-node
+;    (print node-at-depth)
+;    (print parent-node)
+
+    (setf subtree (my-get-subtree tree parent-node))
+
+;    (print subtree)
+    (list subtree (cadr par-ind))
+        
+    )
+  
+)
+  
+  )
+
+
+(defun my-get-subtree (tree parent-node)
+
+(let ((subtree tree))
+     
+  (if (eq (car tree) parent-node)
+       subtree
+      (dotimes (index (list-length tree) subtree)
+	
+	(if (listp (nth index tree))
+	    (progn
+	      (setf subtree (my-get-subtree (nth index tree) parent-node))
+	      (if (eq (car subtree) parent-node)
+		  (return-from my-get-subtree subtree)
+		  )
+	    )
+	    )
+	)
+      
+      )
+
+  )
+  
+  )
+
+
+(setf tree '(a (b c) (d e (f (g h i j)) k)))
+(nth-subtree-parent tree 2)
+
+
+(defun my-get-node-at-depth (tree depth)
+
+  (let ((queue (my-queue-all tree nil 0)))
+    (return-from my-get-node-at-depth (nth depth queue))
+    )
+  
+  
+  )
+
+
+
+(defun my-getsubtree-by-depth (depth tree)
+  ;; incomplete
+
+  (let ((root-node (nth 1 (my-get-node-at-depth tree depth))))
+    (print root-node)
+    (print (my-get-subtree-of-node root-node tree))
+    
+
+    )
+  )
+
+(defun my-get-subtree-of-node (node tree)
+
+  (print tree)
+  (if (eq (car tree) node)
+      (return-from my-get-subtree-of-node tree)
+      )
+  
+  (dotimes (index (list-length tree))
+    (if (listp (nth index tree))
+	(progn ;; if list
+	  (if (eq (car (nth index tree)) node)
+	      (return-from my-get-subtree-of-node (nth index tree))
+	      (return-from my-get-subtree-of-node (my-get-subtree-of-node node (nth index tree)))
+	      )	  
+	  )
+	(progn ;; if not list
+	  
+	  )
+	)
+    
+    )
+
+  )
+
+;(setf tree '(a (b c) (d e (f (g h i j)) k)))
+;(my-getsubtree-by-depth 3 tree)
+  
+
+  
+
+(defun my-get-parent-of (node tree)
+
+  (let ((parents (my-queue-all tree nil 0)))
+
+    (dotimes (x (list-length parents))
+
+      (if (eq (car (nth x parents)) node)
+
+	  (return (list (nth 1 (nth x parents)) (nth 2 (nth x parents))))
+	  ) 
+      
+      )
+    
+    )
+  
+  )
+
+(defun my-queue-all (tree parent index)
+  ;; initially pass nil as parent and index as 0
+
+  ;; output : ((A NIL -1) (B A 0) (C B 0) (D A 1) (E D 0) (F D 1) (G F 0) (H G 0) (I G 1) (J G 2) (K D 2)) 
+
+  (let ((queue '()))
+    (dotimes (i (list-length tree))
+      ;(print (car tree))
+      ;(print tree)
+      (if (listp (nth i tree))
+	  (setf queue (append queue (my-queue-all (nth i tree) (car tree) i)))
+	  (progn
+	    (if (eq i 0)
+		(setf queue (append queue (list (list (nth i tree) parent (- index 1)))))
+		(setf queue (append queue (list (list (nth i tree) (car tree) (- i 1)))))	    
+		)
+	    )
+	  )
+      )
+    queue
+    )  
   )
 
 
