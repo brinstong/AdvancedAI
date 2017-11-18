@@ -854,68 +854,6 @@ a tree of that size"
   )
 
 
-(defun nth-subtree-parent (tree n)
-  "Given a tree, finds the nth node by depth-first search though
-the tree, not including the root node of the tree (0-indexed). If the
-nth node is NODE, let the parent node of NODE is PARENT,
-and NODE is the ith child of PARENT (starting with 0),
-then return a list of the form (PARENT i).  For example, in
-the tree (a (b c d) (f (g (h) i) j)), let's say that (g (h) i)
-is the chosen node.  Then we return ((f (g (h) i) j) 0).
-
-If n is bigger than the number of nodes in the tree
- (not including the root), then we return n - nodes_in_tree
- (except for root)."
-
-  ;;; this is best described with an example:
-  ;    (dotimes (x 12)
-  ;           (print (nth-subtree-parent
-  ;                       '(a (b c) (d e (f (g h i j)) k))
-  ;                        x)))
-  ;;; result:
-  ;((A (B C) (D E (F (G H I J)) K)) 0) 
-  ;((B C) 0) 
-  ;((A (B C) (D E (F (G H I J)) K)) 1) 
-  ;((D E (F (G H I J)) K) 0) 
-  ;((D E (F (G H I J)) K) 1) 
-  ;((F (G H I J)) 0) 
-  ;((G H I J) 0) 
-  ;((G H I J) 1) 
-  ;((G H I J) 2) 
-  ;((D E (F (G H I J)) K) 2) 
-  ;0 
-  ;1 
-  ;NIL
-
-    ;;; IMPLEMENT ME
-
-  (if (<= n 0)
-      (return-from nth-subtree-parent nil)             
-      )
-
-  (if (> n (- (num-nodes tree) 1))
-      (return-from nth-subtree-parent (- n (num-nodes tree)))        
-      (let* ((node-at-depth (my-get-node-at-depth tree n))
-	 (par-ind (my-get-parent-of (car node-at-depth)  tree))
-	 (parent-node (car par-ind))
-	 subtree
-	 )
-    ;; subtree at my-node
-;    (print node-at-depth)
-;    (print parent-node)
-
-    (setf subtree (my-get-subtree tree parent-node))
-
-;    (print subtree)
-    (list subtree (cadr par-ind))
-        
-    )
-  
-)
-  
-  )
-
-
 (defun my-get-subtree (tree parent-node)
 
 (let ((subtree tree))
@@ -941,8 +879,8 @@ If n is bigger than the number of nodes in the tree
   )
 
 
-(setf tree '(a (b c) (d e (f (g h i j)) k)))
-(nth-subtree-parent tree 2)
+;(setf tree '(a (b c) (d e (f (g h i j)) k)))
+;(nth-subtree-parent tree 2)
 
 
 (defun my-get-node-at-depth (tree depth)
@@ -1038,6 +976,143 @@ If n is bigger than the number of nodes in the tree
   )
 
 
+
+(defun nth-subtree-parent (tree n)
+  "Given a tree, finds the nth node by depth-first search though
+the tree, not including the root node of the tree (0-indexed). If the
+nth node is NODE, let the parent node of NODE is PARENT,
+and NODE is the ith child of PARENT (starting with 0),
+then return a list of the form (PARENT i).  For example, in
+the tree (a (b c d) (f (g (h) i) j)), let's say that (g (h) i)
+is the chosen node.  Then we return ((f (g (h) i) j) 0).
+
+If n is bigger than the number of nodes in the tree
+ (not including the root), then we return n - nodes_in_tree
+ (except for root)."
+
+  ;;; this is best described with an example:
+  ;    (dotimes (x 12)
+  ;           (print (nth-subtree-parent
+  ;                       '(a (b c) (d e (f (g h i j)) k))
+  ;                        x)))
+  ;;; result:
+  ;((A (B C) (D E (F (G H I J)) K)) 0) 
+  ;((B C) 0) 
+  ;((A (B C) (D E (F (G H I J)) K)) 1) 
+  ;((D E (F (G H I J)) K) 0) 
+  ;((D E (F (G H I J)) K) 1) 
+  ;((F (G H I J)) 0) 
+  ;((G H I J) 0) 
+  ;((G H I J) 1) 
+  ;((G H I J) 2) 
+  ;((D E (F (G H I J)) K) 2) 
+  ;0 
+  ;1 
+  ;NIL
+
+    ;;; IMPLEMENT ME
+
+  (if (<= n 0)
+      (return-from nth-subtree-parent nil)             
+      )
+
+  (if (> n (- (num-nodes tree) 1))
+      (return-from nth-subtree-parent (- n (num-nodes tree)))        
+      (let* ((node-at-depth (my-get-node-at-depth tree n))
+	 (par-ind (my-get-parent-of (car node-at-depth)  tree))
+	 (parent-node (car par-ind))
+	 subtree
+	 )
+    ;; subtree at my-node
+;    (print node-at-depth)
+;    (print parent-node)
+
+    (setf subtree (my-get-subtree tree parent-node))
+
+;    (print subtree)
+    (list subtree (cadr par-ind))
+        
+    )
+  
+)
+  
+  )
+
+
+#|
+(setf tree1 '(A (B C) (D E (F (G H I J)) K)))
+(setf tree2 '(1 (2 3) (4 5 (6 (7 8 9 10)) 11)))
+|#
+
+
+(defun my-subtree-crossover (ind1 ind2)
+
+  (let* ((index1 0)
+	 (index2 0)
+	 (new-tree1 '())
+	 (new-tree2 '())
+	 (subtree1 '())
+	 (subtree2 '())
+;	   (num1 (- (num-nodes ind1) 1))
+;	   (num2 (- (num-nodes ind2) 1))
+	 )
+    
+    (if (> (length ind1) 1)	
+	(setf subtree1 (nth-subtree-parent ind1 (random (- (num-nodes ind1) 1))))
+	(setf subtree1 (list (list ind1) -1)))
+    (if (> (length ind2) 1)
+	(setf subtree2 (nth-subtree-parent ind2 (random (- (num-nodes ind2) 1))))
+	(setf subtree2 (list (list ind2) -1)))
+    
+    (setf index1 (+ (cadr subtree1) 1))
+    (setf index2 (+ (cadr subtree2) 1))
+    
+    ;;(setf new-tree1 (copy-seq (nth index1 (first subtree1))))
+    ;;(setf new-tree2 (copy-seq (nth index2 (first subtree2))))
+		
+    (setf new-tree1 (copy-tree (nth index1 (car subtree1))))
+    (setf new-tree2 (copy-tree (nth index2 (car subtree2))))
+    (setf (nth index1 (car subtree1)) new-tree2) 
+    (setf (nth index2 (car subtree2)) new-tree1) 
+    (if (and (= (length ind1) 1) (listp (car ind1)))
+	(setf ind1 (car ind1))
+	)
+    (if (and (= (length ind2) 1) (listp (car ind1)))
+	(setf ind2 (car ind2))
+	)
+    
+    (list ind1 ind2)
+    ) 
+
+  (return-from my-subtree-crossover (list ind1 ind2))  
+  
+
+  )
+
+(defun my-mutate-tree (ind)
+  (let ((first-index 0)
+	(new-tree (ptc2 (+ (random *mutation-size-limit*) 1)))
+	(subtree '())
+	)
+    (if (> (length ind) 1) 
+	(setf subtree (nth-subtree-parent ind (random (- (num-nodes ind) 1))))
+	(return-from my-mutate-tree new-tree)
+	)
+    (setf first-index (+ (cadr subtree) 1))
+    (setf (nth first-index (car subtree)) new-tree) 
+    (if (atom ind) (print (/ 1 0)))
+    ind			
+    )
+  ind
+  )
+
+
+(defun my-subtree-mutation (ind1 ind2)
+  (list (my-mutate-tree ind1) (my-mutate-tree ind2))
+  )
+
+
+
 (defparameter *mutation-size-limit* 10)
 (defun gp-modifier (ind1 ind2)
   "Flips a coin.  If it's heads, then ind1 and ind2 are
@@ -1048,7 +1123,19 @@ from 1 to 10 inclusive.  Doesn't damage ind1 or ind2.  Returns
 the two modified versions as a list."
 
     ;;; IMPLEMENT ME
-)
+
+  (let ((i1 (copy-seq ind1))
+	(i2 (copy-seq ind2)))
+
+  (if (random?)
+      (return-from gp-modifier (my-subtree-crossover i1 i2))
+      (return-from gp-modifier (my-subtree-mutation i1 i2))
+      )
+
+
+  )
+
+  )
 
 
 
