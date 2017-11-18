@@ -335,8 +335,6 @@ POP-SIZE, using various functions"
 
 
 
-
-
 ;;;;;; BOOLEAN VECTOR GENETIC ALGORTITHM
 
 
@@ -1608,8 +1606,8 @@ else ELSE is evaluated"
 
     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
-      (setf (aref *map* *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
-      (if (equalp #\# (aref *map* next-x-pos next-y-pos))
+      (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
+      (if (not (aref *map* next-y-pos next-x-pos ))
         (progn 
           (incf *eaten-pellets*)
           (eval then)
@@ -1648,7 +1646,7 @@ where the ant had gone."
       (if (< *current-move* *num-moves*)
         (progn
           (incf *current-move*)
-          (setf (aref *map* *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
+          (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
           (setf *current-x-pos* (x-pos-at *current-x-pos* *current-ant-dir*))
           (setf *current-y-pos* (y-pos-at *current-y-pos* *current-ant-dir*))
         )
@@ -1692,43 +1690,10 @@ where the ant had gone."
 for *num-moves* moves.  The fitness is the number of pellets eaten -- thus
 more pellets, higher (better) fitness."
 
-      ;;; IMPLEMENT ME
-      
-
-      ;; (let 
-      ;;   ((food-ahead-node (first *nonterminal-set*))
-      ;;     (progn2-node (first (second *nonterminal-set*)))
-      ;;     (progn3-node (second (second *nonterminal-set*)))
-      ;;     (left-node (first *terminal-set*))
-      ;;     (right-node (first (second *terminal-set*)))
-      ;;     (move-node (second (second *terminal-set*)))
-      ;;     (current-move (first ind))
-      ;;     (next-moves-queue (second ind)))
-
-      ;;     (dotimes (move *num-moves*)
-      ;;       ;; (cond 
-      ;;       ;;   (
-      ;;       ;;     (eq current-move food-ahead-node)
-      ;;       ;;       (eval if-food-ahead ))
-      ;;       ;; )
-      ;;       (let (next-moves-list ))
-      ;;       (eval)
-      ;;     )
-
-        
-  ;; )
-
-  (format t "ind : ~a~%" ind)
+  ;; (format t "ind : ~a~%" ind)
 
   (eval ind)
   *eaten-pellets*
-  ;;    (let ((fitness ()))
-        (format t "Fitness:~a~%" *eaten-pellets*)
-  ;;    )
-
-      
-
-      
 )
 
 ;; you might choose to write your own printer, which prints out the best
