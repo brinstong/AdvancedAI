@@ -762,8 +762,8 @@ in function form (X) rather than just X."
 
   (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
 (setq *terminal-set* '(x))
-
-    (if (= size 1)
+    (let (root q count nt-picked root-arguments-count root-args-queue root-args-list s a nt-picked-for-a a-arguments-count a-args-queue child-index t-picked)
+      (if (= size 1)
 
         (progn
           (setf root (elt *terminal-set* (random (length *terminal-set*))))
@@ -782,16 +782,16 @@ in function form (X) rather than just X."
 
             (setf root (list (first nt-picked)))
             (setf root-arguments-count (second nt-picked))
-            (setf root (append root (list nil)))
+            
+            
 
             (format t "Root Chosen:~a~%" root)
 
             (setf root-args-queue (make-queue))
             (dotimes (arg-slot-index root-arguments-count)
                 (enqueue nil root-args-queue)
-                
+                (setf root (append root (list nil)))
             )
-            (setf (second root) root-args-queue)
 
             (dotimes (arg-slot-index root-arguments-count)
                 (enqueue (list root arg-slot-index) q)
@@ -812,25 +812,26 @@ in function form (X) rather than just X."
 
                 (setf a (list (first nt-picked-for-a)))
                 (setf a-arguments-count (second nt-picked-for-a))
-                (setf a (append a (list nil)))
+                ;; (setf a (append a (list nil)))
                 (format t "a Chosen:~a~%" a)
 
                 (setf a-args-queue (make-queue))
                 (dotimes (arg-slot-index a-arguments-count)
                   (enqueue nil a-args-queue)
+                  (setf a (append a (list nil)))
                 )
-                (setf (second a) a-args-queue)
 
                 
                 (format t "parent before adding child:~a~%" (first s))
                 
 
                 (setf child-index (second s))
-                (setf (elt (second (first s)) child-index) a)
+                (format t "second~a~%:" (rest (first s)))
+                (setf (elt (rest (first s)) child-index) a)
                 (format t "parent after adding child:~a~%" (first s))
                 
                 (dotimes (arg-slot-index a-arguments-count)
-                  (enqueue (list (elt (second (first s)) child-index) arg-slot-index) q)
+                  (enqueue (list (elt (rest (first s)) child-index) arg-slot-index) q)
                 )
 
                 (format t "a:~a~%" a)
@@ -848,15 +849,15 @@ in function form (X) rather than just X."
                 (format t "Slot Chosen:~a~%" s)
 
                 (setf t-picked (elt *terminal-set* (random (length *terminal-set*))))
-                (setf a (list t-picked))
-                (setf a (append a (list nil)))
-                (setf (second a) (make-queue))
+                (setf a t-picked)
+                ;; (setf a (append a (list nil)))
+                
                 ;; (setf a t-picked)
                 (format t "T Chosen:~a~%" a)
 
                 (format t "parent before adding child:~a~%" (first s))
                 (setf child-index (second s))
-                (setf (elt (second (first s)) child-index) a)
+                (setf (elt (rest (first s)) child-index) a)
                 (format t "parent after adding child:~a~%" (first s))
                 
             )
@@ -864,9 +865,11 @@ in function form (X) rather than just X."
             root
         )
     )
+    )
+    
 )
 
-  ;; (ptc2 10)
+  (ptc2 10)
 
 
 (defparameter *size-limit* 20)
@@ -1041,6 +1044,77 @@ a tree of that size"
     queue
     )  
   )
+
+(defun nth-subtree-parent (tree n)
+  "Given a tree, finds the nth node by depth-first search though
+the tree, not including the root node of the tree (0-indexed). If the
+nth node is NODE, let the parent node of NODE is PARENT,
+and NODE is the ith child of PARENT (starting with 0),
+then return a list of the form (PARENT i).  For example, in
+the tree (a (b c d) (f (g (h) i) j)), let's say that (g (h) i)
+is the chosen node.  Then we return ((f (g (h) i) j) 0).
+
+If n is bigger than the number of nodes in the tree
+ (not including the root), then we return n - nodes_in_tree
+ (except for root)."
+
+  ;;; this is best described with an example:
+  ;    (dotimes (x 12)
+  ;           (print (nth-subtree-parent
+  ;                       '(a (b c) (d e (f (g h i j)) k))
+  ;                        x)))
+  ;;; result:
+  ;((A (B C) (D E (F (G H I J)) K)) 0) 
+  ;((B C) 0) 
+  ;((A (B C) (D E (F (G H I J)) K)) 1) 
+  ;((D E (F (G H I J)) K) 0) 
+  ;((D E (F (G H I J)) K) 1) 
+  ;((F (G H I J)) 0) 
+  ;((G H I J) 0) 
+  ;((G H I J) 1) 
+  ;((G H I J) 2) 
+  ;((D E (F (G H I J)) K) 2) 
+  ;0 
+  ;1 
+  ;NIL
+
+    ;;; IMPLEMENT ME
+
+  (if (<= n 0)
+      (return-from nth-subtree-parent nil)             
+      )
+
+  (if (> n (- (num-nodes tree) 1))
+      (return-from nth-subtree-parent (- n (num-nodes tree)))        
+      (let* ((node-at-depth (my-get-node-at-depth tree n))
+	 (par-ind (my-get-parent-of (car node-at-depth)  tree))
+	 (parent-node (car par-ind))
+	 subtree
+	 )
+    ;; subtree at my-node
+;    (print node-at-depth)
+;    (print parent-node)
+
+    (setf subtree (my-get-subtree tree parent-node))
+
+;    (print subtree)
+    (list subtree (cadr par-ind))
+        
+    )
+  
+)
+  
+  )
+
+
+
+
+
+(setf tree '(a (b c) (d e (f (g h i j)) k)))
+(nth-subtree-parent tree 2)
+
+
+
 
 
 
@@ -1494,6 +1568,19 @@ else ELSE is evaluated"
   ;; because this is an if/then statement, it MUST be implemented as a macro.
 
     ;;; IMPLEMENT ME
+    
+
+    (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
+        (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
+      (setf (aref map *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
+      (if (equalp #\# (*map* next-x-pos next-y-pos))
+        (progn 
+          (incf *eaten-pellets*)
+          (eval then)
+        )
+        (eval else)
+      )
+    )
 )
 
 (defun progn2 (arg1 arg2)
@@ -1513,6 +1600,14 @@ ant is now.  Perhaps it might be nice to leave a little trail in the map showing
 where the ant had gone."
 
       ;;; IMPLEMENT ME
+      (if (< *current-move* *num-moves*)
+        (progn
+          (incf *current-move*)
+          (setf (aref map *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
+          (setf *current-x-pos* (x-pos-at *current-x-pos* *current-ant-dir*))
+          (setf *current-y-pos* (y-pos-at *current-y-pos* *current-ant-dir*))
+        )
+      )
   )
 
 
@@ -1520,12 +1615,16 @@ where the ant had gone."
   "Increments the move count, and turns the ant left"
 
       ;;; IMPLEMENT ME
+      (incf *current-move*)
+      (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
 )
 
 (defun right ()
   "Increments the move count, and turns the ant right"
 
       ;;; IMPLEMENT ME
+      (incf *current-move*)
+      (setf *current-ant-dir* (absolute-direction *r* *current-ant-dir*))
 )
 
 (defparameter *nonterminal-set* nil)
@@ -1549,6 +1648,36 @@ for *num-moves* moves.  The fitness is the number of pellets eaten -- thus
 more pellets, higher (better) fitness."
 
       ;;; IMPLEMENT ME
+      
+
+      ;; (let 
+      ;;   ((food-ahead-node (first *nonterminal-set*))
+      ;;     (progn2-node (first (second *nonterminal-set*)))
+      ;;     (progn3-node (second (second *nonterminal-set*)))
+      ;;     (left-node (first *terminal-set*))
+      ;;     (right-node (first (second *terminal-set*)))
+      ;;     (move-node (second (second *terminal-set*)))
+      ;;     (current-move (first ind))
+      ;;     (next-moves-queue (second ind)))
+
+      ;;     (dotimes (move *num-moves*)
+      ;;       ;; (cond 
+      ;;       ;;   (
+      ;;       ;;     (eq current-move food-ahead-node)
+      ;;       ;;       (eval if-food-ahead ))
+      ;;       ;; )
+      ;;       (let (next-moves-list ))
+      ;;       (eval)
+      ;;     )
+
+        
+      ;; )
+      (let ((fitness (eval ind)))
+        (format t "Fitness:~a~%" fitness)
+      )
+      
+
+      
 )
 
 ;; you might choose to write your own printer, which prints out the best
