@@ -1,3 +1,4 @@
+;; 1378
 
 ;;; Project 1: Build a simple evolutionary computation system.
 
@@ -131,8 +132,6 @@ new slot is created).  EQUALP is the test used for duplicates."
 
 
 
-
-
 ;;; TOURNAMENT SELECTION
 
 (defparameter *tournament-size* 7)
@@ -212,6 +211,20 @@ prints that fitness and individual in a pleasing manner."
 
 (defun my-get-best-ind-fit (population fitnesses best-ind best-fit)
 
+  (terpri)
+  (format t "population : ~a~%" population)
+  (terpri)
+  (format t "fitnesses : ~a~%" fitnesses)
+  (terpri)
+  (format t "best-ind : ~a~%" best-ind)
+  (terpri)
+  (format t "best-fit : ~a~%" best-fit)
+  (terpri)
+      
+  
+  
+    
+  
   (mapcar #'(lambda (ind fit) ; traverse through population and fitnesses
             (when (or (not best-ind) (< best-fit fit)) ; if new best found
               (setq best-ind ind)
@@ -285,15 +298,29 @@ POP-SIZE, using various functions"
     (dotimes (generation-counter generations) 
       (format t "~%Current Generation : ~a" (+ 1 generation-counter))
 
+      (terpri)
+      (format t "Evolve 1 ")
+      (format t "population : ~a~%" population)
       
       (let ((fitnesses (mapcar evaluator population)))
 
 	(setf ind-fit-list (my-get-best-ind-fit population fitnesses best-ind best-fit))
+	(terpri)
+	(format t "Evolve 2 ")
+
 	(setf best-ind (first ind-fit-list))
-        (setf best-fit (second ind-fit-list))
+        (terpri)
+	(format t "Evolve 3 ")
+	(setf best-fit (second ind-fit-list))
+	(terpri)
+	(format t "Evolve 4 ")
 	(funcall printer population fitnesses)
+	(terpri)
+	(format t "Evolve 5 ")
 	(setf population (my-generate-new-population population fitnesses modifier selector))
-	
+	(terpri)
+	(format t "Evolve 6 ")
+      
       )      
     )
 
@@ -760,15 +787,15 @@ in function form (X) rather than just X."
 
   ;; We are storing tree as list(parent array-child-list)
 
-  (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
-(setq *terminal-set* '(x))
+  ;;(setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+;;(setq *terminal-set* '(x))
     (let (root q count nt-picked root-arguments-count root-args-queue root-args-list s a nt-picked-for-a a-arguments-count a-args-queue child-index t-picked)
       (if (= size 1)
 
         (progn
           (setf root (elt *terminal-set* (random (length *terminal-set*))))
-          (format t "Final Root:~a~%"  root)
-          root
+         ; (format t "Final Root:~a~%"  root)
+          (list root)
         )
         
 
@@ -778,14 +805,14 @@ in function form (X) rather than just X."
             (setf count 1)
 
             (setf nt-picked (elt *nonterminal-set* (random (length *nonterminal-set*))))
-            (format t "NonT Chosen:~a~%" nt-picked)
+           ; (format t "NonT Chosen:~a~%" nt-picked)
 
             (setf root (list (first nt-picked)))
             (setf root-arguments-count (second nt-picked))
             
             
 
-            (format t "Root Chosen:~a~%" root)
+           ; (format t "Root Chosen:~a~%" root)
 
             (setf root-args-queue (make-queue))
             (dotimes (arg-slot-index root-arguments-count)
@@ -797,23 +824,23 @@ in function form (X) rather than just X."
                 (enqueue (list root arg-slot-index) q)
             )
 
-            (format t "Root with args:~a~%" root)
-            (format t "Queue with root args:~a~%" q)
+            ;(format t "Root with args:~a~%" root)
+            ;(format t "Queue with root args:~a~%" q)
 
             (while (< (+ count (length q)) size)
                 nil
-                (format t "Inside 1st while~%")
+             ;   (format t "Inside 1st while~%")
                 (setf s (random-dequeue q))
-                (format t "Slot Chosen:~a~%" s)
+              ;  (format t "Slot Chosen:~a~%" s)
 
                 (setf nt-picked-for-a (elt *nonterminal-set* (random (length *nonterminal-set*))))
-                (format t "NonT Chosen for a:~a~%" nt-picked-for-a)
+               ; (format t "NonT Chosen for a:~a~%" nt-picked-for-a)
                 (incf count)
 
                 (setf a (list (first nt-picked-for-a)))
                 (setf a-arguments-count (second nt-picked-for-a))
                 ;; (setf a (append a (list nil)))
-                (format t "a Chosen:~a~%" a)
+                ;(format t "a Chosen:~a~%" a)
 
                 (setf a-args-queue (make-queue))
                 (dotimes (arg-slot-index a-arguments-count)
@@ -822,46 +849,46 @@ in function form (X) rather than just X."
                 )
 
                 
-                (format t "parent before adding child:~a~%" (first s))
+               ; (format t "parent before adding child:~a~%" (first s))
                 
 
                 (setf child-index (second s))
-                (format t "second~a~%:" (rest (first s)))
+                ;(format t "second~a~%:" (rest (first s)))
                 (setf (elt (rest (first s)) child-index) a)
-                (format t "parent after adding child:~a~%" (first s))
+                ;(format t "parent after adding child:~a~%" (first s))
                 
                 (dotimes (arg-slot-index a-arguments-count)
                   (enqueue (list (elt (rest (first s)) child-index) arg-slot-index) q)
                 )
 
-                (format t "a:~a~%" a)
+                ;(format t "a:~a~%" a)
 
                 
-                (format t "root with args:~a~%" root)
-                (format t "Queue with args:~a~%" q)
+                ;(format t "root with args:~a~%" root)
+                ;(format t "Queue with args:~a~%" q)
                     
             )
 
             (while (not (queue-empty-p q))
                 nil
-                (format t "Inside 2nd while~%")
+                ;(format t "Inside 2nd while~%")
                 (setf s (random-dequeue q))
-                (format t "Slot Chosen:~a~%" s)
+                ;(format t "Slot Chosen:~a~%" s)
 
                 (setf t-picked (elt *terminal-set* (random (length *terminal-set*))))
-                (setf a t-picked)
+                (setf a (list t-picked))
                 ;; (setf a (append a (list nil)))
                 
                 ;; (setf a t-picked)
-                (format t "T Chosen:~a~%" a)
+                ;(format t "T Chosen:~a~%" a)
 
-                (format t "parent before adding child:~a~%" (first s))
+                ;(format t "parent before adding child:~a~%" (first s))
                 (setf child-index (second s))
                 (setf (elt (rest (first s)) child-index) a)
-                (format t "parent after adding child:~a~%" (first s))
+                ;(format t "parent after adding child:~a~%" (first s))
                 
             )
-            (format t "Final Root:~a~%"  root)
+            ;(format t "Final Root:~a~%"  root)
             root
         )
     )
@@ -869,7 +896,7 @@ in function form (X) rather than just X."
     
 )
 
-  (ptc2 10)
+;  (ptc2 10)
 
 
 (defparameter *size-limit* 20)
@@ -1110,8 +1137,8 @@ If n is bigger than the number of nodes in the tree
 
 
 
-(setf tree '(a (b c) (d e (f (g h i j)) k)))
-(nth-subtree-parent tree 2)
+;(setf tree '(a (b c) (d e (f (g h i j)) k)))
+;(nth-subtree-parent tree 2)
 
 
 
@@ -1382,8 +1409,8 @@ returning most-positive-fixnum as the output of that expression."
 	:modifier #'gp-modifier
         :evaluator #'gp-symbolic-regression-evaluator
 	:printer #'simple-printer)
-|#
 
+|#
 
 
 
@@ -1581,8 +1608,8 @@ else ELSE is evaluated"
 
     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
-      (setf (aref map *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
-      (if (equalp #\# (*map* next-x-pos next-y-pos))
+      (setf (aref *map* *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
+      (if (equalp #\# (aref *map* next-x-pos next-y-pos))
         (progn 
           (incf *eaten-pellets*)
           (eval then)
@@ -1594,11 +1621,20 @@ else ELSE is evaluated"
 
 (defun progn2 (arg1 arg2)
     "Evaluates arg1 and arg2 in succession, then returns the value of arg2"
+;    (format t "progn2 arg1 : ~a~%" arg1)
+;    (format t "progn2 arg2 : ~a~%" arg2)
+    
+
     (declaim (ignore arg1))
     arg2)  ;; ...though in artificial ant, the return value isn't used ... 
 
 (defun progn3 (arg1 arg2 arg3)
   "Evaluates arg1, arg2, and arg3 in succession, then returns the value of arg3"
+
+;  (format t "progn3 arg1 : ~a~%" arg1)
+;  (format t "progn3 arg2 : ~a~%" arg2)  
+;  (format t "progn3 arg3 : ~a~%" arg3)
+        
   (declaim (ignore arg1 arg2))
   arg3)  ;; ...though in artificial ant, the return value isn't used ...
 
@@ -1612,7 +1648,7 @@ where the ant had gone."
       (if (< *current-move* *num-moves*)
         (progn
           (incf *current-move*)
-          (setf (aref map *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
+          (setf (aref *map* *current-x-pos* *current-y-pos*) (direction-to-arrow *current-ant-dir*))
           (setf *current-x-pos* (x-pos-at *current-x-pos* *current-ant-dir*))
           (setf *current-y-pos* (y-pos-at *current-y-pos* *current-ant-dir*))
         )
@@ -1625,7 +1661,7 @@ where the ant had gone."
 
       ;;; IMPLEMENT ME
       (incf *current-move*)
-      (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
+      (setf *current-ant-dir* (absolute-direction *w* *current-ant-dir*))
 )
 
 (defun right ()
@@ -1633,7 +1669,7 @@ where the ant had gone."
 
       ;;; IMPLEMENT ME
       (incf *current-move*)
-      (setf *current-ant-dir* (absolute-direction *r* *current-ant-dir*))
+      (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
 )
 
 (defparameter *nonterminal-set* nil)
@@ -1680,10 +1716,16 @@ more pellets, higher (better) fitness."
       ;;     )
 
         
-      ;; )
-      (let ((fitness (eval ind)))
-        (format t "Fitness:~a~%" fitness)
-      )
+  ;; )
+
+  (format t "ind : ~a~%" ind)
+
+  (eval ind)
+  *eaten-pellets*
+  ;;    (let ((fitness ()))
+        (format t "Fitness:~a~%" *eaten-pellets*)
+  ;;    )
+
       
 
       
@@ -1692,7 +1734,7 @@ more pellets, higher (better) fitness."
 ;; you might choose to write your own printer, which prints out the best
 ;; individual's map.  But it's not required.
 
-#|
+
 (evolve 50 500
 	:setup #'gp-artificial-ant-setup
 	:creator #'gp-creator
@@ -1700,4 +1742,3 @@ more pellets, higher (better) fitness."
 	:modifier #'gp-modifier
         :evaluator #'gp-artificial-ant-evaluator
 	:printer #'simple-printer)
-|#
