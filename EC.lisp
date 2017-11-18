@@ -1513,6 +1513,10 @@ more pellets, higher (better) fitness."
 
         
       ;; )
+      (let ((fitness (eval ind)))
+        (format t "Fitness:~a~%" fitness)
+      )
+      
 
       
 )
