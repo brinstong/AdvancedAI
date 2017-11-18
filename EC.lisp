@@ -762,8 +762,8 @@ in function form (X) rather than just X."
 
   (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
 (setq *terminal-set* '(x))
-
-    (if (= size 1)
+    (let (root q count nt-picked root-arguments-count root-args-queue root-args-list s a nt-picked-for-a a-arguments-count a-args-queue child-index t-picked)
+      (if (= size 1)
 
         (progn
           (setf root (elt *terminal-set* (random (length *terminal-set*))))
@@ -782,16 +782,16 @@ in function form (X) rather than just X."
 
             (setf root (list (first nt-picked)))
             (setf root-arguments-count (second nt-picked))
-            (setf root (append root (list nil)))
+            
+            
 
             (format t "Root Chosen:~a~%" root)
 
             (setf root-args-queue (make-queue))
             (dotimes (arg-slot-index root-arguments-count)
                 (enqueue nil root-args-queue)
-                
+                (setf root (append root (list nil)))
             )
-            (setf (second root) root-args-queue)
 
             (dotimes (arg-slot-index root-arguments-count)
                 (enqueue (list root arg-slot-index) q)
@@ -812,25 +812,26 @@ in function form (X) rather than just X."
 
                 (setf a (list (first nt-picked-for-a)))
                 (setf a-arguments-count (second nt-picked-for-a))
-                (setf a (append a (list nil)))
+                ;; (setf a (append a (list nil)))
                 (format t "a Chosen:~a~%" a)
 
                 (setf a-args-queue (make-queue))
                 (dotimes (arg-slot-index a-arguments-count)
                   (enqueue nil a-args-queue)
+                  (setf a (append a (list nil)))
                 )
-                (setf (second a) a-args-queue)
 
                 
                 (format t "parent before adding child:~a~%" (first s))
                 
 
                 (setf child-index (second s))
-                (setf (elt (second (first s)) child-index) a)
+                (format t "second~a~%:" (rest (first s)))
+                (setf (elt (rest (first s)) child-index) a)
                 (format t "parent after adding child:~a~%" (first s))
                 
                 (dotimes (arg-slot-index a-arguments-count)
-                  (enqueue (list (elt (second (first s)) child-index) arg-slot-index) q)
+                  (enqueue (list (elt (rest (first s)) child-index) arg-slot-index) q)
                 )
 
                 (format t "a:~a~%" a)
@@ -848,15 +849,15 @@ in function form (X) rather than just X."
                 (format t "Slot Chosen:~a~%" s)
 
                 (setf t-picked (elt *terminal-set* (random (length *terminal-set*))))
-                (setf a (list t-picked))
-                (setf a (append a (list nil)))
-                (setf (second a) (make-queue))
+                (setf a t-picked)
+                ;; (setf a (append a (list nil)))
+                
                 ;; (setf a t-picked)
                 (format t "T Chosen:~a~%" a)
 
                 (format t "parent before adding child:~a~%" (first s))
                 (setf child-index (second s))
-                (setf (elt (second (first s)) child-index) a)
+                (setf (elt (rest (first s)) child-index) a)
                 (format t "parent after adding child:~a~%" (first s))
                 
             )
@@ -864,9 +865,11 @@ in function form (X) rather than just X."
             root
         )
     )
+    )
+    
 )
 
-  ;; (ptc2 10)
+  (ptc2 10)
 
 
 (defparameter *size-limit* 20)
