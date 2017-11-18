@@ -761,65 +761,112 @@ in function form (X) rather than just X."
   some hints, but you should try to figure it out on your own if you can.
   |#
 
-  ;;; IMPLEMENT ME
+  ;; We are storing tree as list(parent array-child-list)
 
-  ;; (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
-  ;; (setq *terminal-set* '(x))
+  (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+(setq *terminal-set* '(x))
 
     (if (= size 1)
 
-      (elt *terminal-set* (random (length *terminal-set*)))
+        (progn
+          (setf root (elt *terminal-set* (random (length *terminal-set*))))
+          (format t "Final Root:~a~%"  root)
+          root
+        )
+        
 
-      (progn
-        ;; (format t "Inside else~%")
-        (setf q (make-queue))
-        (setf root (make-queue))
-        (setf root-element (elt *nonterminal-set* (random (length *nonterminal-set*))))
-        (enqueue root-element root)
-        ;; (format t "Root: ~a~%" root)
-        (setf count 1)
-        (dotimes (child-arg-index (second root-element))
-          (progn
-            (setf argument-q (make-queue))
-            (enqueue argument-q root)
-            (enqueue argument-q q)
-          ) 
-        )
-        ;; (format t "Current Queue: ~a~%" q)
-        (while (< (+ count (length q)) size)
-          nil
-          (setf s (random-argument-slot-dequeue q))
-          (setf a (elt *nonterminal-set* (random (length *nonterminal-set*))))
-          ;; (format t "Nonterminal picked up:~a~%" a)
-          (incf count)
-          ;; (setf s (append s a))
-          (enqueue a s)
-          ;; (format t "Current Queue: ~a~%" q)
-          (dotimes (child-arg-index (second a))
-          (progn
-            (setf argument-q (make-queue))
-            (enqueue argument-q root)
-            (enqueue argument-q q)
-          ) 
-        )
-        ;; (format t "Current Queue after first while: ~a~%" q)
-        )
-        ;; (format t "Before 2nd while~%" q)
-        (while (not (queue-empty-p q))
-          nil
-          ;; (format t "Inside 2nd while~%" q)
-          (setf s (random-argument-slot-dequeue q))
-          (setf a (make-queue))
-          (setf a-element (elt *terminal-set* (random (length *terminal-set*))))
-          (enqueue a-element a)
-          ;; (format t "terminal ind picked: ~a~%" a)
-          (enqueue a s)
-          ;; (format t "Current Queue inside second while: ~a~%" q)
-        )
-        (format t "Root: ~a~%" root)
-      ) 
+        (progn
 
-  )
+            (setf q (make-queue))
+            (setf count 1)
+
+            (setf nt-picked (elt *nonterminal-set* (random (length *nonterminal-set*))))
+            (format t "NonT Chosen:~a~%" nt-picked)
+
+            (setf root (list (first nt-picked)))
+            (setf root-arguments-count (second nt-picked))
+            (setf root (append root (list nil)))
+
+            (format t "Root Chosen:~a~%" root)
+
+            (setf root-args-queue (make-queue))
+            (dotimes (arg-slot-index root-arguments-count)
+                (enqueue nil root-args-queue)
+                
+            )
+            (setf (second root) root-args-queue)
+
+            (dotimes (arg-slot-index root-arguments-count)
+                (enqueue (list root arg-slot-index) q)
+            )
+
+            (format t "Root with args:~a~%" root)
+            (format t "Queue with root args:~a~%" q)
+
+            (while (< (+ count (length q)) size)
+                nil
+                (format t "Inside 1st while~%")
+                (setf s (random-dequeue q))
+                (format t "Slot Chosen:~a~%" s)
+
+                (setf nt-picked-for-a (elt *nonterminal-set* (random (length *nonterminal-set*))))
+                (format t "NonT Chosen for a:~a~%" nt-picked-for-a)
+                (incf count)
+
+                (setf a (list (first nt-picked-for-a)))
+                (setf a-arguments-count (second nt-picked-for-a))
+                (setf a (append a (list nil)))
+                (format t "a Chosen:~a~%" a)
+
+                (setf a-args-queue (make-queue))
+                (dotimes (arg-slot-index a-arguments-count)
+                  (enqueue nil a-args-queue)
+                )
+                (setf (second a) a-args-queue)
+
+                
+                (format t "parent before adding child:~a~%" (first s))
+                
+
+                (setf child-index (second s))
+                (setf (elt (second (first s)) child-index) a)
+                (format t "parent after adding child:~a~%" (first s))
+                
+                (dotimes (arg-slot-index a-arguments-count)
+                  (enqueue (list (elt (second (first s)) child-index) arg-slot-index) q)
+                )
+
+                (format t "a:~a~%" a)
+
+                
+                (format t "root with args:~a~%" root)
+                (format t "Queue with args:~a~%" q)
+                    
+            )
+
+            (while (not (queue-empty-p q))
+                nil
+                (format t "Inside 2nd while~%")
+                (setf s (random-dequeue q))
+                (format t "Slot Chosen:~a~%" s)
+
+                (setf t-picked (elt *terminal-set* (random (length *terminal-set*))))
+                (setf a (list t-picked))
+                (setf a (append a (list nil)))
+                (setf (second a) (make-queue))
+                ;; (setf a t-picked)
+                (format t "T Chosen:~a~%" a)
+
+                (format t "parent before adding child:~a~%" (first s))
+                (setf child-index (second s))
+                (setf (elt (second (first s)) child-index) a)
+                (format t "parent after adding child:~a~%" (first s))
+                
+            )
+            (format t "Final Root:~a~%"  root)
+            root
+        )
+    )
 )
 
   ;; (ptc2 10)
