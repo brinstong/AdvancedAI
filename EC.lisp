@@ -1,4 +1,3 @@
-;; 1378
 
 ;;; Project 1: Build a simple evolutionary computation system.
 
@@ -211,15 +210,6 @@ prints that fitness and individual in a pleasing manner."
 
 (defun my-get-best-ind-fit (population fitnesses best-ind best-fit)
 
-  (terpri)
-  (format t "population : ~a~%" population)
-  (terpri)
-  (format t "fitnesses : ~a~%" fitnesses)
-  (terpri)
-  (format t "best-ind : ~a~%" best-ind)
-  (terpri)
-  (format t "best-fit : ~a~%" best-fit)
-  (terpri)
       
   
   
@@ -300,7 +290,7 @@ POP-SIZE, using various functions"
 
       (terpri)
       (format t "Evolve 1 ")
-      (format t "population : ~a~%" population)
+ ;;     (format t "population : ~a~%" population)
       
       (let ((fitnesses (mapcar evaluator population)))
 
@@ -1255,22 +1245,43 @@ If n is bigger than the number of nodes in the tree
 
   )
 
-(defun my-mutate-tree (ind)
-  (let ((first-index 0)
-	(new-tree (ptc2 (+ (random *mutation-size-limit*) 1)))
-	(subtree '())
-	)
-    (if (> (length ind) 1) 
-	(setf subtree (nth-subtree-parent ind (random (- (num-nodes ind) 1))))
-	(return-from my-mutate-tree new-tree)
-	)
-    (setf first-index (+ (cadr subtree) 1))
-    (setf (nth first-index (car subtree)) new-tree) 
-    (if (atom ind) (print (/ 1 0)))
-    ind			
-    )
-  ind
+
+(defun my-put-tree-at-random (tree new-tree)
+
+  (let ((go-deep (random? 0.75)))
+    (dotimes (x (list-length tree) tree)
+      (if go-deep
+	  (if (listp (nth x tree))
+	      (my-put-tree-at-random (nth x tree) new-tree)
+	      (setf (nth x tree) new-tree)
+	      )
+	  )
+      )
+    )  
   )
+
+(defparameter *mutation-size-limit* 10)
+
+(defun my-mutate-tree (ind)
+
+ ; (return-from my-mutate-tree ind)
+
+  (format t "Now mutating ind : ~a~%" ind)
+
+  
+  (let (
+	(new-tree (ptc2 (random *mutation-size-limit*)))
+	)
+;;    (print "Now inside")
+    (my-put-tree-at-random ind new-tree)
+    (format t "Done mutating ind : ~a~%" ind)
+    (return-from my-mutate-tree ind)
+    )
+    )
+
+;(print (ptc2 5))
+;(setf tree123 '(a (b c) (d e (f (g h i j)) k)))
+;(format t "Done mutating : ~a~%" (my-mutate-tree tree123))
 
 
 (defun my-subtree-mutation (ind1 ind2)
@@ -1279,7 +1290,8 @@ If n is bigger than the number of nodes in the tree
 
 
 
-(defparameter *mutation-size-limit* 10)
+
+
 (defun gp-modifier (ind1 ind2)
   "Flips a coin.  If it's heads, then ind1 and ind2 are
 crossed over using subtree crossover.  If it's tails, then
@@ -1293,11 +1305,12 @@ the two modified versions as a list."
   (let ((i1 (copy-seq ind1))
 	(i2 (copy-seq ind2)))
 
-  (if (random?)
-      (return-from gp-modifier (my-subtree-crossover i1 i2))
-      (return-from gp-modifier (my-subtree-mutation i1 i2))
-      )
+;  (if (random?)
+;      (return-from gp-modifier (my-subtree-crossover i1 i2))
+;      (return-from gp-modifier (my-subtree-mutation i1 i2))
+;      )
 
+;;    (return-from gp-modifier (list ind1 ind2))
 
   )
 
@@ -1602,7 +1615,13 @@ else ELSE is evaluated"
   ;; because this is an if/then statement, it MUST be implemented as a macro.
 
     ;;; IMPLEMENT ME
-    
+
+  #|
+  (format t "Now in-food-ahead :")
+  (format t "then : ~a~%" then)
+  (format t "else : ~a~%" else)
+  |#
+  
 
     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
@@ -1642,6 +1661,8 @@ and moves the ant forward, consuming any pellet under the new square where the
 ant is now.  Perhaps it might be nice to leave a little trail in the map showing
 where the ant had gone."
 
+;;  (format t "in move")
+  
       ;;; IMPLEMENT ME
       (if (< *current-move* *num-moves*)
         (progn
@@ -1657,6 +1678,9 @@ where the ant had gone."
 (defun left ()
   "Increments the move count, and turns the ant left"
 
+;;  (format t "in left")
+  
+  
       ;;; IMPLEMENT ME
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *w* *current-ant-dir*))
@@ -1665,6 +1689,8 @@ where the ant had gone."
 (defun right ()
   "Increments the move count, and turns the ant right"
 
+;;  (format t "in right")
+  
       ;;; IMPLEMENT ME
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
@@ -1692,6 +1718,7 @@ more pellets, higher (better) fitness."
 
   ;; (format t "ind : ~a~%" ind)
 
+  
   (eval ind)
   *eaten-pellets*
 )
@@ -1707,3 +1734,12 @@ more pellets, higher (better) fitness."
 	:modifier #'gp-modifier
         :evaluator #'gp-artificial-ant-evaluator
 	:printer #'simple-printer)
+
+
+
+
+
+
+
+
+
