@@ -137,22 +137,19 @@ new slot is created).  EQUALP is the test used for duplicates."
 (defun tournament-select-one (population fitnesses)
   "Does one tournament selection and returns the selected individual."
 
-  ;;; IMPLEMENT ME  
-
-
+  ;;; IMPLEMENT ME
   (let* ((len (list-length population))
 	 (index (random len))
 	 (best-pop (nth index population))
 	 (best-fit (nth index fitnesses))
 	 pop
 	 fit
-	 (best-ind index))
-
-
+	 (best-ind index)
+   rand)
     (dotimes (ind (- *tournament-size* 1))
-      (setf pop (nth ind population))
-      (setf fit (nth ind fitnesses))
-
+      (setf rand (random (list-length population)))
+      (setf pop (nth rand population))
+      (setf fit (nth rand fitnesses))
       (if (> fit best-fit)
 	  (progn
 	    (setf best-pop pop)
@@ -229,7 +226,7 @@ prints that fitness and individual in a pleasing manner."
 
 (defun my-generate-new-population (population fitnesses modifier selector)
 (let (new-population `())
-  (dotimes (counter (/ (length population) 2))
+  (dotimes (counter (/ (list-length population) 2))
     (setf selected-parents-list (funcall selector 2 population fitnesses))
     (setf modified-children-list (apply modifier selected-parents-list))
     (setf new-population (append modified-children-list new-population))
@@ -389,7 +386,7 @@ given allele in a child will mutate.  Mutation simply flips the bit of the allel
 
 (defun uniform-crossover (ind1 ind2)
   
-  (dotimes (n (length ind1))
+  (dotimes (n (list-length ind1))
     (if (>= *boolean-crossover-probability* (random 1.0))
       (rotatef (elt ind1 n) (elt ind2 n))
     )
@@ -542,7 +539,7 @@ This is taken fro the CS580 class.
 (defun float-uniform-crossover (ind1 ind2)
 
 
-  (dotimes (n (length ind1))
+  (dotimes (n (list-length ind1))
     (if (>= *float-crossover-probability* (random 1.0)) ; randomly decides whether to perform crossover.
       (rotatef (elt ind1 n) (elt ind2 n)) ; swaps the two elements
     )
@@ -557,7 +554,7 @@ This is taken fro the CS580 class.
 
      
   (dotimes 
-    (counter (length ind))
+    (counter (list-length ind))
     (let* (
               (mean (/ (+ *float-min* *float-max*) 2))
               (n (gaussian-random mean *float-mutation-variance*)) 
@@ -608,7 +605,7 @@ its fitness. I am assuming the fitness to be equal to the sum of all floats"
     ;;; IMPLEMENT ME
 
    (let ((counter 0))
-    (dotimes (index (length ind1))
+    (dotimes (index (list-length ind1))
       ; (print index)
       ; (print (nth index ind1))
 
@@ -697,33 +694,6 @@ Error generated if the queue is empty."
     (swap (elt queue index) (elt queue (1- (length queue))))
     (vector-pop queue)))
 
-;; I am stating empty list `() as an argument slot
-(defun random-argument-slot-dequeue (queue)
-  (let* (argument-slot-dequeued)
-    (setf argument-slot-dequeued (random-dequeue queue))
-    ;; (format t "Argument slot dequeued: ~a~%" argument-slot-dequeued)
-    (while (not (queue-empty-p argument-slot-dequeued))
-      nil
-      (enqueue argument-slot-dequeued queue)
-      (setf argument-slot-dequeued (random-dequeue queue))
-    )
-    argument-slot-dequeued
-  )
-)
-
-(defun random-argument-slot (queue)
-  (let* (argument-slot)
-    (setf argument-slot (elt queue (random (length queue))))
-  
-    (while (not (queue-empty-p argument-slot))
-      nil
-      (setf argument-slot (elt queue (random (length queue))))
-    )
-    (format t "Argument slot picked: ~a~%" argument-slot)
-    argument-slot
-  )
-)
-
 (defun ptc2 (size)
   "If size=1, just returns a random terminal.  Else builds and
 returns a tree by repeatedly extending the tree horizon with
@@ -781,7 +751,7 @@ in function form (X) rather than just X."
       (if (= size 1)
 
         (progn
-          (setf root (elt *terminal-set* (random (length *terminal-set*))))
+          (setf root (elt *terminal-set* (random (list-length *terminal-set*))))
          ; (format t "Final Root:~a~%"  root)
           (list root)
         )
@@ -792,7 +762,7 @@ in function form (X) rather than just X."
             (setf q (make-queue))
             (setf count 1)
 
-            (setf nt-picked (elt *nonterminal-set* (random (length *nonterminal-set*))))
+            (setf nt-picked (elt *nonterminal-set* (random (list-length *nonterminal-set*))))
            ; (format t "NonT Chosen:~a~%" nt-picked)
 
             (setf root (list (first nt-picked)))
@@ -821,7 +791,7 @@ in function form (X) rather than just X."
                 (setf s (random-dequeue q))
               ;  (format t "Slot Chosen:~a~%" s)
 
-                (setf nt-picked-for-a (elt *nonterminal-set* (random (length *nonterminal-set*))))
+                (setf nt-picked-for-a (elt *nonterminal-set* (random (list-length *nonterminal-set*))))
                ; (format t "NonT Chosen for a:~a~%" nt-picked-for-a)
                 (incf count)
 
@@ -863,7 +833,7 @@ in function form (X) rather than just X."
                 (setf s (random-dequeue q))
                 ;(format t "Slot Chosen:~a~%" s)
 
-                (setf t-picked (elt *terminal-set* (random (length *terminal-set*))))
+                (setf t-picked (elt *terminal-set* (random (list-length *terminal-set*))))
                 (setf a (list t-picked))
                 ;; (setf a (append a (list nil)))
                 
@@ -898,7 +868,7 @@ a tree of that size"
 
 (defun recursive-num-nodes (tree)
     (format t "inside recursive : ~a~%" tree)
-    (format t "inside recursive length of tree : ~a~%" (length tree))
+    (format t "inside recursive length of tree : ~a~%" (list-length tree))
       (if (queue-empty-p tree)
         (progn
           (format t "tree empty~%")
@@ -1136,6 +1106,14 @@ If n is bigger than the number of nodes in the tree
 
 (defun my-subtree-crossover (ind1 ind2)
 
+(if (not (listp ind1))
+    (setf ind (list ind1))
+  )
+
+  (if (not (listp ind2))
+    (setf ind (list ind2))
+  )
+
   (let* ((index1 0)
 	 (index2 0)
 	 (new-tree1 '())
@@ -1145,11 +1123,11 @@ If n is bigger than the number of nodes in the tree
 ;	   (num1 (- (num-nodes ind1) 1))
 ;	   (num2 (- (num-nodes ind2) 1))
 	 )
-    (if (> (length ind1) 1)	
+    (if (> (list-length ind1) 1)	
 	    (setf subtree1 (nth-subtree-parent ind1 (random (- (num-nodes ind1) 1))))
       (setf subtree1 (list (list ind1) -1))
     )
-    (if (> (length ind2) 1)
+    (if (> (list-length ind2) 1)
 	    (setf subtree2 (nth-subtree-parent ind2 (random (- (num-nodes ind2) 1))))
 	    (setf subtree2 (list (list ind2) -1))
     )
@@ -1162,10 +1140,10 @@ If n is bigger than the number of nodes in the tree
     (setf new-tree2 (copy-tree (nth index2 (car subtree2))))
     (setf (nth index1 (car subtree1)) new-tree2) 
     (setf (nth index2 (car subtree2)) new-tree1) 
-    (if (and (= (length ind1) 1) (listp (car ind1)))
+    (if (and (= (list-length ind1) 1) (listp (car ind1)))
 	    (setf ind1 (car ind1))
 	  )
-    (if (and (= (length ind2) 1) (listp (car ind1)))
+    (if (and (= (list-length ind2) 1) (listp (car ind1)))
 	    (setf ind2 (car ind2))
 	  )
     
@@ -1205,7 +1183,9 @@ If n is bigger than the number of nodes in the tree
 
   (format t "Now mutating ind : ~a~%" ind)
 
-  
+  (if (not (listp ind))
+    (setf ind (list ind))
+  )
   (let (
 	(new-tree (ptc2 (random *mutation-size-limit*)))
 	)
@@ -1223,6 +1203,7 @@ If n is bigger than the number of nodes in the tree
 
 (defun my-subtree-mutation (ind1 ind2)
   (list (my-mutate-tree ind1) (my-mutate-tree ind2))
+  (format t "hi")
   )
 
 
@@ -1242,10 +1223,10 @@ the two modified versions as a list."
   (let ((i1 (copy-tree ind1))
 	(i2 (copy-tree ind2)))
 
-;  (if (random?)
-;      (return-from gp-modifier (my-subtree-crossover i1 i2))
-;      (return-from gp-modifier (my-subtree-mutation i1 i2))
-;      )
+ (if (random?)
+     (return-from gp-modifier (my-subtree-crossover i1 i2))
+     (return-from gp-modifier (my-subtree-mutation i1 i2))
+     )
 
 ;;    (return-from gp-modifier (list ind1 ind2))
 
@@ -1336,7 +1317,7 @@ returning most-positive-fixnum as the output of that expression."
 
   ;;; IMPLEMENT ME
     (let (ind-output poly-output (z 0) fitness)
-      (dotimes (vals-index (length *vals*))
+      (dotimes (vals-index (list-length *vals*))
         (setf *x* (elt *vals* vals-index))
         (setf ind-output (eval ind))
         (setf poly-output (poly-to-learn *x*))
