@@ -145,9 +145,14 @@ new slot is created).  EQUALP is the test used for duplicates."
 	 pop
 	 fit
 	 (best-ind index)
-   rand)
+   rand
+   random-size-for-subtree)
     (dotimes (ind (- *tournament-size* 1))
-      (setf rand (random (list-length population)))
+      (setf random-size-for-subtree (random (list-length population)))
+      (if (eq 0 random-size-for-subtree)
+        (incf random-size-for-subtree)
+      )
+      (setf rand (random random-size-for-subtree))
       (setf pop (nth rand population))
       (setf fit (nth rand fitnesses))
       (if (> fit best-fit)
@@ -195,8 +200,8 @@ prints that fitness and individual in a pleasing manner."
     (mapcar #'(lambda (ind fit)
 		(when (or (not best-ind)
 			    (< best-fit fit))
-		    (setq best-ind ind)
-		      (setq best-fit fit))) pop fitnesses)
+		    (setf best-ind ind)
+		      (setf best-fit fit))) pop fitnesses)
     (format t "~%Best Individual of Generation...~%Fitness: ~a~%Individual:~a~%"
 	        best-fit best-ind)
     fitnesses))
@@ -214,8 +219,8 @@ prints that fitness and individual in a pleasing manner."
   
   (mapcar #'(lambda (ind fit) ; traverse through population and fitnesses
             (when (or (not best-ind) (< best-fit fit)) ; if new best found
-              (setq best-ind ind)
-              (setq best-fit fit)
+              (setf best-ind ind)
+              (setf best-fit fit)
             )
               )
         population fitnesses)
@@ -225,11 +230,15 @@ prints that fitness and individual in a pleasing manner."
 )
 
 (defun my-generate-new-population (population fitnesses modifier selector)
-(let (new-population `())
+(let (new-population)
   (dotimes (counter (/ (list-length population) 2))
     (setf selected-parents-list (funcall selector 2 population fitnesses))
     (setf modified-children-list (apply modifier selected-parents-list))
-    (setf new-population (append modified-children-list new-population))
+    (if (listp new-population)
+      (setf new-population (append modified-children-list new-population))
+      (setf new-population modified-children-list)
+    )
+    
   )
   (setf population new-population)
   )
@@ -287,7 +296,7 @@ POP-SIZE, using various functions"
 
       (terpri)
       (format t "Evolve 1 ")
- ;;     (format t "population : ~a~%" population)
+    ;;  (format t "population before evaluation:~a~%" population)
       
       (let ((fitnesses (mapcar evaluator population)))
 
@@ -846,7 +855,7 @@ in function form (X) rather than just X."
                 ;(format t "parent after adding child:~a~%" (first s))
                 
             )
-            ;(format t "Final Root:~a~%"  root)
+            ;; (format t "Final Root:~a~%" root)
             root
         )
     )
@@ -1106,12 +1115,8 @@ If n is bigger than the number of nodes in the tree
 
 (defun my-subtree-crossover (ind1 ind2)
 
-(if (not (listp ind1))
-    (setf ind (list ind1))
-  )
-
-  (if (not (listp ind2))
-    (setf ind (list ind2))
+  (if (not (and (> (num-nodes ind1) 1) (> (num-nodes ind2) 1)))
+    (return-from my-subtree-crossover (list ind1 ind2))
   )
 
   (let* ((index1 0)
@@ -1120,30 +1125,52 @@ If n is bigger than the number of nodes in the tree
 	 (new-tree2 '())
 	 (subtree1 '())
 	 (subtree2 '())
+   random-size-for-subtree)
 ;	   (num1 (- (num-nodes ind1) 1))
 ;	   (num2 (- (num-nodes ind2) 1))
-	 )
+	 
     (if (> (list-length ind1) 1)	
-	    (setf subtree1 (nth-subtree-parent ind1 (random (- (num-nodes ind1) 1))))
+      (progn
+        (setf random-size-for-subtree (random (- (num-nodes ind1) 1)))
+        (if (eq 0 random-size-for-subtree)
+          (incf random-size-for-subtree)
+        )
+        (setf subtree1 (nth-subtree-parent ind1 random-size-for-subtree))
+      )
       (setf subtree1 (list (list ind1) -1))
     )
-    (if (> (list-length ind2) 1)
-	    (setf subtree2 (nth-subtree-parent ind2 (random (- (num-nodes ind2) 1))))
-	    (setf subtree2 (list (list ind2) -1))
+    (if (> (list-length ind2) 1)	
+      (progn
+        (setf random-size-for-subtree (random (- (num-nodes ind2) 1)))
+        (if (eq 0 random-size-for-subtree)
+          (incf random-size-for-subtree)
+        )
+        (setf subtree2 (nth-subtree-parent ind2 random-size-for-subtree))
+      )
+      (setf subtree2 (list (list ind1) -1))
     )
+    
     (setf index1 (+ (cadr subtree1) 1))
     (setf index2 (+ (cadr subtree2) 1))
     
     ;;(setf new-tree1 (copy-tree (nth index1 (first subtree1))))
     ;;(setf new-tree2 (copy-tree (nth index2 (first subtree2))))
-    (setf new-tree1 (copy-tree (nth index1 (car subtree1))))
-    (setf new-tree2 (copy-tree (nth index2 (car subtree2))))
-    (setf (nth index1 (car subtree1)) new-tree2) 
-    (setf (nth index2 (car subtree2)) new-tree1) 
+    (if (> index1 0)
+      (setf new-tree1 (copy-tree (nth index1 (car subtree1))))
+    )
+    (if (> index2 0)
+      (setf new-tree2 (copy-tree (nth index2 (car subtree2))))
+    )
+    (if (> index1 0)
+      (setf (nth index1 (car subtree1)) new-tree2) 
+    )
+    (if (> index2 0)
+      (setf (nth index2 (car subtree2)) new-tree1) 
+    )
     (if (and (= (list-length ind1) 1) (listp (car ind1)))
 	    (setf ind1 (car ind1))
 	  )
-    (if (and (= (list-length ind2) 1) (listp (car ind1)))
+    (if (and (= (list-length ind2) 1) (listp (car ind2)))
 	    (setf ind2 (car ind2))
 	  )
     
@@ -1168,7 +1195,10 @@ If n is bigger than the number of nodes in the tree
       (if go-deep
 	  (if (listp (nth x tree))
 	      (my-put-tree-at-random (nth x tree) new-tree)
-	      (setf (nth x tree) new-tree)
+        (if (> x 0)
+          (setf (nth x tree) new-tree)
+        )
+	      
 	      )
 	  )
       )
@@ -1181,17 +1211,17 @@ If n is bigger than the number of nodes in the tree
 
  ; (return-from my-mutate-tree ind)
 
-  (format t "Now mutating ind : ~a~%" ind)
+  ;; (format t "Now mutating ind : ~a~%" ind)
 
-  (if (not (listp ind))
-    (setf ind (list ind))
-  )
+  ;; (if (not (listp ind))
+  ;;   (setf ind (list ind))
+  ;; )
   (let (
 	(new-tree (ptc2 (random *mutation-size-limit*)))
 	)
 ;;    (print "Now inside")
     (my-put-tree-at-random ind new-tree)
-    (format t "Done mutating ind : ~a~%" ind)
+    ;; (format t "Done mutating ind : ~a~%" ind)
     (return-from my-mutate-tree ind)
     )
     )
@@ -1203,7 +1233,6 @@ If n is bigger than the number of nodes in the tree
 
 (defun my-subtree-mutation (ind1 ind2)
   (list (my-mutate-tree ind1) (my-mutate-tree ind2))
-  (format t "hi")
   )
 
 
@@ -1224,7 +1253,7 @@ the two modified versions as a list."
 	(i2 (copy-tree ind2)))
 
  (if (random?)
-     (return-from gp-modifier (my-subtree-crossover i1 i2))
+    (return-from gp-modifier (my-subtree-crossover i1 i2))
      (return-from gp-modifier (my-subtree-mutation i1 i2))
      )
 
@@ -1534,72 +1563,42 @@ else ELSE is evaluated"
 
     ;;; IMPLEMENT ME
 
-  #|
+  
   (format t "Now in-food-ahead :")
-  (format t "then : ~a~%" then)
-  (format t "else : ~a~%" else)
-  |#
+  
+  
+  
   
 
     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
-      (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
       (if (not (aref *map* next-y-pos next-x-pos ))
         (progn 
-          (incf *eaten-pellets*)
-          (if (and (listp then) (> (list-length then) 1))
-            (progn 
-              (eval then)
-            )
-            then
-          )
+          (format t "then : ~a~%" then)
+          (eval then)
         )
-
-        (if (and (listp else) (> (list-length else) 1))
-            (progn 
-              (eval else)
-            )
-            else
+        (progn
+          (format t "else : ~a~%" else)
+          (eval else)
         )
       )
     )
 )
-
-;; (defmacro if-food-ahead (then else)
-;;   "If there is food directly ahead of the ant, then THEN is evaluated,
-;; else ELSE is evaluated"
-;;   ;; because this is an if/then statement, it MUST be implemented as a macro.
-
-;;     ;;; IMPLEMENT ME
-    
-
-;;     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
-;;         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
-;;       (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
-;;       (if (not (aref *map* next-y-pos next-x-pos ))
-;;         (progn 
-;;           (incf *eaten-pellets*)
-;;           then
-;;         )
-;;         else
-;;       )
-;;     )
-;; )
 (defun progn2 (arg1 arg2)
     "Evaluates arg1 and arg2 in succession, then returns the value of arg2"
-;    (format t "progn2 arg1 : ~a~%" arg1)
-;    (format t "progn2 arg2 : ~a~%" arg2)
-    
+   (format t "progn2 arg1 : ~a~%" arg1)
+    (format t "progn2 arg2 : ~a~%" arg2)
+    (format t "Now prg2:")
 
     (declaim (ignore arg1))
     arg2)  ;; ...though in artificial ant, the return value isn't used ... 
 
 (defun progn3 (arg1 arg2 arg3)
   "Evaluates arg1, arg2, and arg3 in succession, then returns the value of arg3"
-
-;  (format t "progn3 arg1 : ~a~%" arg1)
-;  (format t "progn3 arg2 : ~a~%" arg2)  
-;  (format t "progn3 arg3 : ~a~%" arg3)
+(format t "Now prg3:")
+ (format t "progn3 arg1 : ~a~%" arg1)
+  (format t "progn3 arg2 : ~a~%" arg2)  
+  (format t "progn3 arg3 : ~a~%" arg3)
         
   (declaim (ignore arg1 arg2))
   arg3)  ;; ...though in artificial ant, the return value isn't used ...
@@ -1609,16 +1608,19 @@ else ELSE is evaluated"
 and moves the ant forward, consuming any pellet under the new square where the
 ant is now.  Perhaps it might be nice to leave a little trail in the map showing
 where the ant had gone."
-
-;;  (format t "in move")
   
       ;;; IMPLEMENT ME
       (if (< *current-move* *num-moves*)
         (progn
+          (format t "mmove : ~a~%" *current-move*)
+          
           (incf *current-move*)
           (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
           (setf *current-x-pos* (x-pos-at *current-x-pos* *current-ant-dir*))
           (setf *current-y-pos* (y-pos-at *current-y-pos* *current-ant-dir*))
+          (if (not (aref *map* *current-y-pos* *current-x-pos*))
+            (incf *eaten-pellets*)
+          )
         )
       )
   )
@@ -1631,6 +1633,7 @@ where the ant had gone."
   
   
       ;;; IMPLEMENT ME
+      (format t "lmove : ~a~%" *current-move*)
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *w* *current-ant-dir*))
 )
@@ -1641,6 +1644,7 @@ where the ant had gone."
 ;;  (format t "in right")
   
       ;;; IMPLEMENT ME
+      (format t "rmove : ~a~%" *current-move*)
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
 )
@@ -1665,15 +1669,22 @@ where the ant had gone."
 for *num-moves* moves.  The fitness is the number of pellets eaten -- thus
 more pellets, higher (better) fitness."
 
-  ;; (format t "ind : ~a~%" ind)
-
-  ind
+  (format t "hi ind: ~a~%" ind)
+  (if (listp (first ind))
+    (eval (first ind))
+    (eval ind)
+  )
+  ;; (if (> (list-length ind) 1)
+  ;;   (eval ind)
+  ;;   (eval (first ind))
+  ;; )
+  
   *eaten-pellets*
 )
 
 ;; you might choose to write your own printer, which prints out the best
 ;; individual's map.  But it's not required.
-
+;; (((PROGN2 (RIGHT) (MOVE))) ((RIGHT)) (((PROGN2 (RIGHT) (MOVE)))))
 
 (evolve 50 500
 	:setup #'gp-artificial-ant-setup
@@ -1682,8 +1693,6 @@ more pellets, higher (better) fitness."
 	:modifier #'gp-modifier
         :evaluator #'gp-artificial-ant-evaluator
 	:printer #'simple-printer)
-
-
 
 
 
