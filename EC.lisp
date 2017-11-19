@@ -1,4 +1,3 @@
-
 ;;; Project 1: Build a simple evolutionary computation system.
 
 ;;; This is a nontrivial project to start with.  Do not discuss
@@ -294,28 +293,28 @@ POP-SIZE, using various functions"
     (dotimes (generation-counter generations) 
       (format t "~%Current Generation : ~a" (+ 1 generation-counter))
 
-      (terpri)
-      (format t "Evolve 1 ")
+    ;;  (terpri)
+    ;;  (format t "Evolve 1 ")
     ;;  (format t "population before evaluation:~a~%" population)
       
       (let ((fitnesses (mapcar evaluator population)))
 
 	(setf ind-fit-list (my-get-best-ind-fit population fitnesses best-ind best-fit))
-	(terpri)
-	(format t "Evolve 2 ")
+	;;(terpri)
+	;;(format t "Evolve 2 ")
 
 	(setf best-ind (first ind-fit-list))
-        (terpri)
-	(format t "Evolve 3 ")
+        ;;(terpri)
+	;;(format t "Evolve 3 ")
 	(setf best-fit (second ind-fit-list))
-	(terpri)
-	(format t "Evolve 4 ")
+	;;(terpri)
+	;;(format t "Evolve 4 ")
 	(funcall printer population fitnesses)
-	(terpri)
-	(format t "Evolve 5 ")
+	;;(terpri)
+	;;(format t "Evolve 5 ")
 	(setf population (my-generate-new-population population fitnesses modifier selector))
-	(terpri)
-	(format t "Evolve 6 ")
+	;;(terpri)
+	;;(format t "Evolve 6 ")
       
       )      
     )
@@ -875,6 +874,7 @@ a tree of that size"
   (ptc2 (random 20))
   )
 
+#|
 (defun recursive-num-nodes (tree)
     (format t "inside recursive : ~a~%" tree)
     (format t "inside recursive length of tree : ~a~%" (list-length tree))
@@ -891,6 +891,8 @@ a tree of that size"
         )
       )
   )
+
+|#
 
 ;;; GP TREE MODIFICATION CODE
 (defun num-nodes (tree)
@@ -958,6 +960,7 @@ a tree of that size"
 
 
 
+#|
 (defun my-getsubtree-by-depth (depth tree)
   ;; incomplete
 
@@ -968,6 +971,8 @@ a tree of that size"
 
     )
   )
+
+
 
 (defun my-get-subtree-of-node (node tree)
 
@@ -992,7 +997,7 @@ a tree of that size"
     )
 
   )
-
+|#
 ;(setf tree '(a (b c) (d e (f (g h i j)) k)))
 ;(my-getsubtree-by-depth 3 tree)
   
@@ -1196,7 +1201,8 @@ If n is bigger than the number of nodes in the tree
 	  (if (listp (nth x tree))
 	      (my-put-tree-at-random (nth x tree) new-tree)
         (if (> x 0)
-          (setf (nth x tree) new-tree)
+	    (setf (nth x tree) new-tree)
+	    
         )
 	      
 	      )
@@ -1345,20 +1351,28 @@ returning most-positive-fixnum as the output of that expression."
 
 
   ;;; IMPLEMENT ME
-    (let (ind-output poly-output (z 0) fitness)
-      (dotimes (vals-index (list-length *vals*))
+
+
+  (handler-case
+      (let (ind-output poly-output (z 0) fitness)
+	(dotimes (vals-index (list-length *vals*))
         (setf *x* (elt *vals* vals-index))
         (setf ind-output (eval ind))
         (setf poly-output (poly-to-learn *x*))
         (setf z (+ z (abs (- ind-output poly-output))))
+	)
+      (if (not (equal z nil))  (setf fitness (/ 1 (+ 1 z))))
       )
-      (setf fitness (/ 1 (+ 1 z)))
-    )
-    fitness
+    (error (condition)
+      (format t "~%Warning, ~a" condition) (return-from gp-symbolic-regression-evaluator 0)))
+
+  
+    
   )
 
 
 ;;; Example run
+
 #|
 (evolve 50 500
 	:setup #'gp-symbolic-regression-setup
@@ -1367,8 +1381,8 @@ returning most-positive-fixnum as the output of that expression."
 	:modifier #'gp-modifier
         :evaluator #'gp-symbolic-regression-evaluator
 	:printer #'simple-printer)
-
 |#
+
 
 
 
@@ -1564,7 +1578,7 @@ else ELSE is evaluated"
     ;;; IMPLEMENT ME
 
   
-  (format t "Now in-food-ahead :")
+;;  (format t "Now in-food-ahead :")
   
   
   
@@ -1574,11 +1588,11 @@ else ELSE is evaluated"
         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
       (if (not (aref *map* next-y-pos next-x-pos ))
         (progn 
-          (format t "then : ~a~%" then)
+  ;;        (format t "then : ~a~%" then)
           (eval then)
         )
         (progn
-          (format t "else : ~a~%" else)
+  ;;        (format t "else : ~a~%" else)
           (eval else)
         )
       )
@@ -1586,19 +1600,19 @@ else ELSE is evaluated"
 )
 (defun progn2 (arg1 arg2)
     "Evaluates arg1 and arg2 in succession, then returns the value of arg2"
-   (format t "progn2 arg1 : ~a~%" arg1)
-    (format t "progn2 arg2 : ~a~%" arg2)
-    (format t "Now prg2:")
+;;   (format t "progn2 arg1 : ~a~%" arg1)
+;;    (format t "progn2 arg2 : ~a~%" arg2)
+;;    (format t "Now prg2:")
 
     (declaim (ignore arg1))
     arg2)  ;; ...though in artificial ant, the return value isn't used ... 
 
 (defun progn3 (arg1 arg2 arg3)
   "Evaluates arg1, arg2, and arg3 in succession, then returns the value of arg3"
-(format t "Now prg3:")
- (format t "progn3 arg1 : ~a~%" arg1)
-  (format t "progn3 arg2 : ~a~%" arg2)  
-  (format t "progn3 arg3 : ~a~%" arg3)
+;;  (format t "Now prg3:")
+;; (format t "progn3 arg1 : ~a~%" arg1)
+;;  (format t "progn3 arg2 : ~a~%" arg2)  
+;;  (format t "progn3 arg3 : ~a~%" arg3)
         
   (declaim (ignore arg1 arg2))
   arg3)  ;; ...though in artificial ant, the return value isn't used ...
@@ -1612,7 +1626,7 @@ where the ant had gone."
       ;;; IMPLEMENT ME
       (if (< *current-move* *num-moves*)
         (progn
-          (format t "mmove : ~a~%" *current-move*)
+         ;;  (format t "mmove : ~a~%" *current-move*)
           
           (incf *current-move*)
           (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
@@ -1633,7 +1647,7 @@ where the ant had gone."
   
   
       ;;; IMPLEMENT ME
-      (format t "lmove : ~a~%" *current-move*)
+ ;;     (format t "lmove : ~a~%" *current-move*)
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *w* *current-ant-dir*))
 )
@@ -1644,7 +1658,7 @@ where the ant had gone."
 ;;  (format t "in right")
   
       ;;; IMPLEMENT ME
-      (format t "rmove : ~a~%" *current-move*)
+ ;;     (format t "rmove : ~a~%" *current-move*)
       (incf *current-move*)
       (setf *current-ant-dir* (absolute-direction *e* *current-ant-dir*))
 )
@@ -1669,24 +1683,50 @@ where the ant had gone."
 for *num-moves* moves.  The fitness is the number of pellets eaten -- thus
 more pellets, higher (better) fitness."
 
-  (format t "hi ind: ~a~%" ind)
-  (if (listp (first ind))
-    (eval (first ind))
-    (eval ind)
-  )
+;;  (format t "hi ind: ~a~%" ind)
+;  (if (listp (first ind))
+;    (eval (first ind))
+;    (eval ind)
+;  )
   ;; (if (> (list-length ind) 1)
   ;;   (eval ind)
   ;;   (eval (first ind))
   ;; )
   
+  ;;  *eaten-pellets*
+
+  
+
+  (gp-artificial-ant-setup)
+  (setf *current-ant-dir* 0)
+  (setf *current-x-pos* 0)
+  (setf *current-y-pos* 0)
+  
+
+
+  (setf ind 
+;; used backquote to stop evaluation and comma to resume evaluation
+	`(progn (block ret-ind
+		  (dotimes (count *num-moves*)
+		    ,ind		    
+		    )
+		  nil
+		  )
+		*eaten-pellets*))
+  (eval ind)
   *eaten-pellets*
+  
+  
+  
 )
 
 ;; you might choose to write your own printer, which prints out the best
 ;; individual's map.  But it's not required.
 ;; (((PROGN2 (RIGHT) (MOVE))) ((RIGHT)) (((PROGN2 (RIGHT) (MOVE)))))
 
-(evolve 50 500
+
+
+(evolve 5 50
 	:setup #'gp-artificial-ant-setup
 	:creator #'gp-creator
 	:selector #'tournament-selector

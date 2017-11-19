@@ -1,0 +1,36 @@
+\documentclass[]{report}
+\renewcommand{\thesection}{\arabic{section}: }
+
+% Title Page
+\title{Project Report for Evolutionary Computation}
+\author{Aniket Bhosale, Brinston Gonsalves}
+\date{November 17, 2017}
+
+\begin{document}
+\maketitle
+
+\section{Evolutionary Computation}
+
+This project required us to create a high level evolutionary computation framework and utilize it on problems of genetic algorithms including boolean vector, float vector, GP tree creation for symbolic regression and Artificial ANT code.
+
+\subsection{Implementation of Functions and significance of parameters}
+
+We were required to implement tournament selection and then a super-set function which created a list of winners from each tournament selection.
+
+We were then required to implement the main function in the framework, the evolve function which took the references to each of the setup, creator, modifier, printer and evaluator functions for separate problems. This allowed us to call different functions for the same task depending upon the task at hand.
+
+We then created specific functions for boolean vector where for the modifier, we implemented the uniform crossover and the mutate function. 
+
+Since, we want our system to eventually converge, we also created a evaluator which returned a value as a metric to the fitness of the individual. This was used to evaluate how good a individual is.
+
+We created the same functions for float vectors as well where we used gaussian convolution for mutation.
+
+We were then required to implement the PTC2 algorithm, which returned a randomly generated tree from given set of terminal and non-terminal nodes.
+
+For gp tree, we then implemented support functions to calculate number of nodes, subtree, the parent of subtree and to identify the child as nth child of parent along with performing depth first search on the tree.
+
+We also wrote functions to perform crossover and mutation on the tree where the operation of either crossover or mutation was selected randomly. Similar to above cases, we created a evaluator to measure the fitness of the individual.
+
+
+
+\end{document}          
