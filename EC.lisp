@@ -1346,21 +1346,28 @@ returning most-positive-fixnum as the output of that expression."
 
 
   ;;; IMPLEMENT ME
-    (let (ind-output poly-output (z 0) fitness)
-      (dotimes (vals-index (list-length *vals*))
+
+
+  (handler-case
+      (let (ind-output poly-output (z 0) fitness)
+	(dotimes (vals-index (list-length *vals*))
         (setf *x* (elt *vals* vals-index))
         (setf ind-output (eval ind))
         (setf poly-output (poly-to-learn *x*))
         (setf z (+ z (abs (- ind-output poly-output))))
+	)
+      (if (not (equal z nil))  (setf fitness (/ 1 (+ 1 z))))
       )
-      (return-from gp-symbolic-regression-evaluator (setf fitness (/ 1 (+ 1 z))))
-    )
+    (error (condition)
+      (format t "~%Warning, ~a" condition) (return-from gp-symbolic-regression-evaluator 0)))
+
+  
     
   )
 
 
 ;;; Example run
-
+#|
 (evolve 50 500
 	:setup #'gp-symbolic-regression-setup
 	:creator #'gp-creator
@@ -1368,7 +1375,7 @@ returning most-positive-fixnum as the output of that expression."
 	:modifier #'gp-modifier
         :evaluator #'gp-symbolic-regression-evaluator
 	:printer #'simple-printer)
-
+|#
 
 
 
