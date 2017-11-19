@@ -1353,22 +1353,27 @@ returning most-positive-fixnum as the output of that expression."
   ;;; IMPLEMENT ME
 
 
-  (handler-case
+  
       (let (ind-output poly-output (z 0) fitness)
 	(dotimes (vals-index (list-length *vals*))
         (setf *x* (elt *vals* vals-index))
+        (handler-case
         (setf ind-output (eval ind))
+        (error (condition)
+         (setf ind-output most-positive-fixnum)))
         (setf poly-output (poly-to-learn *x*))
+        (handler-case
         (setf z (+ z (abs (- ind-output poly-output))))
+        (error (condition)
+         (setf z most-positive-fixnum)))
 	)
       (if (not (equal z nil))  (setf fitness (/ 1 (+ 1 z))))
       )
-    (error (condition)
-      (format t "~%Warning, ~a" condition) (return-from gp-symbolic-regression-evaluator 0)))
-
+    
+)
   
     
-  )
+
 
 
 ;;; Example run
