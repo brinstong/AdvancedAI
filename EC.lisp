@@ -1196,7 +1196,8 @@ If n is bigger than the number of nodes in the tree
 	  (if (listp (nth x tree))
 	      (my-put-tree-at-random (nth x tree) new-tree)
         (if (> x 0)
-          (setf (nth x tree) new-tree)
+	    (setf (nth x tree) new-tree)
+	    
         )
 	      
 	      )
@@ -1352,14 +1353,14 @@ returning most-positive-fixnum as the output of that expression."
         (setf poly-output (poly-to-learn *x*))
         (setf z (+ z (abs (- ind-output poly-output))))
       )
-      (setf fitness (/ 1 (+ 1 z)))
+      (return-from gp-symbolic-regression-evaluator (setf fitness (/ 1 (+ 1 z))))
     )
-    fitness
+    
   )
 
 
 ;;; Example run
-#|
+
 (evolve 50 500
 	:setup #'gp-symbolic-regression-setup
 	:creator #'gp-creator
@@ -1368,7 +1369,7 @@ returning most-positive-fixnum as the output of that expression."
         :evaluator #'gp-symbolic-regression-evaluator
 	:printer #'simple-printer)
 
-|#
+
 
 
 
@@ -1670,10 +1671,10 @@ for *num-moves* moves.  The fitness is the number of pellets eaten -- thus
 more pellets, higher (better) fitness."
 
   (format t "hi ind: ~a~%" ind)
-  (if (listp (first ind))
-    (eval (first ind))
+;  (if (listp (first ind))
+;    (eval (first ind))
     (eval ind)
-  )
+;  )
   ;; (if (> (list-length ind) 1)
   ;;   (eval ind)
   ;;   (eval (first ind))
@@ -1686,6 +1687,8 @@ more pellets, higher (better) fitness."
 ;; individual's map.  But it's not required.
 ;; (((PROGN2 (RIGHT) (MOVE))) ((RIGHT)) (((PROGN2 (RIGHT) (MOVE)))))
 
+
+#|
 (evolve 50 500
 	:setup #'gp-artificial-ant-setup
 	:creator #'gp-creator
@@ -1694,7 +1697,7 @@ more pellets, higher (better) fitness."
         :evaluator #'gp-artificial-ant-evaluator
 	:printer #'simple-printer)
 
-
+|#
 
 
 
