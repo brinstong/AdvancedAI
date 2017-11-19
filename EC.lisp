@@ -383,8 +383,8 @@ given allele in a child will mutate.  Mutation simply flips the bit of the allel
 
 
     (let* (
-          (ind-cpy1 (copy-seq ind1))
-          (ind-cpy2 (copy-seq ind2))
+          (ind-cpy1 (copy-tree ind1))
+          (ind-cpy2 (copy-tree ind2))
 	  )
         
     (uniform-crossover ind-cpy1 ind-cpy2)
@@ -599,8 +599,8 @@ given allele in a child will mutate.  Mutation does gaussian convolution on the 
 
 
   (let* (
-          (ind-cpy1 (copy-seq ind1))
-          (ind-cpy2 (copy-seq ind2))
+          (ind-cpy1 (copy-tree ind1))
+          (ind-cpy2 (copy-tree ind2))
 	  )
     (float-uniform-crossover ind-cpy1 ind-cpy2)
     (gaussian-convolution ind-cpy1)
@@ -785,8 +785,8 @@ in function form (X) rather than just X."
 
   ;; We are storing tree as list(parent array-child-list)
 
-  ;;(setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
-;;(setq *terminal-set* '(x))
+;;   (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+;; (setq *terminal-set* '(x))
     (let (root q count nt-picked root-arguments-count root-args-queue root-args-list s a nt-picked-for-a a-arguments-count a-args-queue child-index t-picked)
       (if (= size 1)
 
@@ -1057,14 +1057,14 @@ a tree of that size"
       ;(print (car tree))
       ;(print tree)
       (if (listp (nth i tree))
-	  (setf queue (append queue (my-queue-all (nth i tree) (car tree) i)))
-	  (progn
-	    (if (eq i 0)
-		(setf queue (append queue (list (list (nth i tree) parent (- index 1)))))
-		(setf queue (append queue (list (list (nth i tree) (car tree) (- i 1)))))	    
-		)
+	      (setf queue (append queue (my-queue-all (nth i tree) (car tree) i)))
+	      (progn
+	        (if (eq i 0)
+		        (setf queue (append queue (list (list (nth i tree) parent (- index 1)))))
+		        (setf queue (append queue (list (list (nth i tree) (car tree) (- i 1)))))	    
+		      )
+	      )
 	    )
-	  )
       )
     queue
     )  
@@ -1105,9 +1105,9 @@ If n is bigger than the number of nodes in the tree
 
     ;;; IMPLEMENT ME
 
-  (if (<= n 0)
-      (return-from nth-subtree-parent nil)             
-      )
+  ;; (if (<= n 0)
+  ;;     (return-from nth-subtree-parent nil)             
+  ;;     )
 
   (if (> n (- (num-nodes tree) 1))
       (return-from nth-subtree-parent (- n (num-nodes tree)))        
@@ -1133,76 +1133,9 @@ If n is bigger than the number of nodes in the tree
 
 
 
-
-
-;(setf tree '(a (b c) (d e (f (g h i j)) k)))
-;(nth-subtree-parent tree 2)
-
-
-
-
-
-
-(defun nth-subtree-parent (tree n)
-  "Given a tree, finds the nth node by depth-first search though
-the tree, not including the root node of the tree (0-indexed). If the
-nth node is NODE, let the parent node of NODE is PARENT,
-and NODE is the ith child of PARENT (starting with 0),
-then return a list of the form (PARENT i).  For example, in
-the tree (a (b c d) (f (g (h) i) j)), let's say that (g (h) i)
-is the chosen node.  Then we return ((f (g (h) i) j) 0).
-
-If n is bigger than the number of nodes in the tree
- (not including the root), then we return n - nodes_in_tree
- (except for root)."
-
-  ;;; this is best described with an example:
-  ;    (dotimes (x 12)
-  ;           (print (nth-subtree-parent
-  ;                       '(a (b c) (d e (f (g h i j)) k))
-  ;                        x)))
-  ;;; result:
-  ;((A (B C) (D E (F (G H I J)) K)) 0) 
-  ;((B C) 0) 
-  ;((A (B C) (D E (F (G H I J)) K)) 1) 
-  ;((D E (F (G H I J)) K) 0) 
-  ;((D E (F (G H I J)) K) 1) 
-  ;((F (G H I J)) 0) 
-  ;((G H I J) 0) 
-  ;((G H I J) 1) 
-  ;((G H I J) 2) 
-  ;((D E (F (G H I J)) K) 2) 
-  ;0 
-  ;1 
-  ;NIL
-
-    ;;; IMPLEMENT ME
-
-  (if (<= n 0)
-      (return-from nth-subtree-parent nil)             
-      )
-
-  (if (> n (- (num-nodes tree) 1))
-      (return-from nth-subtree-parent (- n (num-nodes tree)))        
-      (let* ((node-at-depth (my-get-node-at-depth tree n))
-	 (par-ind (my-get-parent-of (car node-at-depth)  tree))
-	 (parent-node (car par-ind))
-	 subtree
-	 )
-    ;; subtree at my-node
-;    (print node-at-depth)
-;    (print parent-node)
-
-    (setf subtree (my-get-subtree tree parent-node))
-
-;    (print subtree)
-    (list subtree (cadr par-ind))
-        
-    )
-  
-)
-  
-  )
+;; (setf tssree (ptc2 3))
+;; (print tssree)
+;; (print (nth-subtree-parent tssree 2))
 
 
 #|
@@ -1222,30 +1155,29 @@ If n is bigger than the number of nodes in the tree
 ;	   (num1 (- (num-nodes ind1) 1))
 ;	   (num2 (- (num-nodes ind2) 1))
 	 )
-    
     (if (> (length ind1) 1)	
-	(setf subtree1 (nth-subtree-parent ind1 (random (- (num-nodes ind1) 1))))
-	(setf subtree1 (list (list ind1) -1)))
+	    (setf subtree1 (nth-subtree-parent ind1 (random (- (num-nodes ind1) 1))))
+      (setf subtree1 (list (list ind1) -1))
+    )
     (if (> (length ind2) 1)
-	(setf subtree2 (nth-subtree-parent ind2 (random (- (num-nodes ind2) 1))))
-	(setf subtree2 (list (list ind2) -1)))
-    
+	    (setf subtree2 (nth-subtree-parent ind2 (random (- (num-nodes ind2) 1))))
+	    (setf subtree2 (list (list ind2) -1))
+    )
     (setf index1 (+ (cadr subtree1) 1))
     (setf index2 (+ (cadr subtree2) 1))
     
-    ;;(setf new-tree1 (copy-seq (nth index1 (first subtree1))))
-    ;;(setf new-tree2 (copy-seq (nth index2 (first subtree2))))
-		
+    ;;(setf new-tree1 (copy-tree (nth index1 (first subtree1))))
+    ;;(setf new-tree2 (copy-tree (nth index2 (first subtree2))))
     (setf new-tree1 (copy-tree (nth index1 (car subtree1))))
     (setf new-tree2 (copy-tree (nth index2 (car subtree2))))
     (setf (nth index1 (car subtree1)) new-tree2) 
     (setf (nth index2 (car subtree2)) new-tree1) 
     (if (and (= (length ind1) 1) (listp (car ind1)))
-	(setf ind1 (car ind1))
-	)
+	    (setf ind1 (car ind1))
+	  )
     (if (and (= (length ind2) 1) (listp (car ind1)))
-	(setf ind2 (car ind2))
-	)
+	    (setf ind2 (car ind2))
+	  )
     
     (list ind1 ind2)
     ) 
@@ -1254,6 +1186,11 @@ If n is bigger than the number of nodes in the tree
   
 
   )
+;; (setf myt11 (ptc2 3))
+;; (print myt11)
+;; (setf myt12 (ptc2 3))
+;; (print myt12)
+;;   (print (my-subtree-crossover myt11 myt12))
 
 (defun my-mutate-tree (ind)
   (let ((first-index 0)
@@ -1290,8 +1227,8 @@ the two modified versions as a list."
 
     ;;; IMPLEMENT ME
 
-  (let ((i1 (copy-seq ind1))
-	(i2 (copy-seq ind2)))
+  (let ((i1 (copy-tree ind1))
+	(i2 (copy-tree ind2)))
 
   (if (random?)
       (return-from gp-modifier (my-subtree-crossover i1 i2))
@@ -1610,13 +1547,44 @@ else ELSE is evaluated"
       (if (not (aref *map* next-y-pos next-x-pos ))
         (progn 
           (incf *eaten-pellets*)
-          (eval then)
+          (if (and (listp then) (> (list-length then) 1))
+            (progn 
+              (eval then)
+            )
+            then
+          )
         )
-        (eval else)
+
+        (if (and (listp else) (> (list-length else) 1))
+            (progn 
+              (eval else)
+            )
+            else
+        )
       )
     )
 )
 
+;; (defmacro if-food-ahead (then else)
+;;   "If there is food directly ahead of the ant, then THEN is evaluated,
+;; else ELSE is evaluated"
+;;   ;; because this is an if/then statement, it MUST be implemented as a macro.
+
+;;     ;;; IMPLEMENT ME
+    
+
+;;     (let ((next-x-pos (x-pos-at *current-x-pos* *current-ant-dir*))
+;;         (next-y-pos (y-pos-at *current-y-pos* *current-ant-dir*)))
+;;       (setf (aref *map* *current-y-pos* *current-x-pos*) (direction-to-arrow *current-ant-dir*))
+;;       (if (not (aref *map* next-y-pos next-x-pos ))
+;;         (progn 
+;;           (incf *eaten-pellets*)
+;;           then
+;;         )
+;;         else
+;;       )
+;;     )
+;; )
 (defun progn2 (arg1 arg2)
     "Evaluates arg1 and arg2 in succession, then returns the value of arg2"
 ;    (format t "progn2 arg1 : ~a~%" arg1)
@@ -1692,7 +1660,7 @@ more pellets, higher (better) fitness."
 
   ;; (format t "ind : ~a~%" ind)
 
-  (eval ind)
+  ind
   *eaten-pellets*
 )
 
@@ -1707,3 +1675,16 @@ more pellets, higher (better) fitness."
 	:modifier #'gp-modifier
         :evaluator #'gp-artificial-ant-evaluator
 	:printer #'simple-printer)
+
+;; (setq *nonterminal-set* '((if-food-ahead 2) (progn2 2) (progn3 3)))
+;;   (setq *terminal-set* '(left right move))
+;;   (setf mytree (ptc2 40))
+;; (format t "tree:~a" mytree)
+
+;; (setq *nonterminal-set* '((+ 2) (- 2) (* 2) (% 2) (sin 1) (cos 1) (exp 1)))
+;; (setq *terminal-set* '(x))
+;; (setf mytree (ptc2 5))
+;; (format t "tree:~a" mytree)
+;; (format t "num:~a~%:" (num-nodes mytree))
+;; (format t "length:~a" (length mytree))
+
