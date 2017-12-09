@@ -336,7 +336,23 @@ If there is no such pair, return nil"
 ;;; SPEED HINT.  Any precondition will work.  But this is an opportunity
 ;;; to pick a smart one.  Perhaps you might select the precondition
 ;;; which has the fewest possible operators which solve it, so it fails
-;;; the fastest if it's wrong. 
+;;; the fastest if it's wrong.
+
+
+  (loop for op in (plan-operators plan)
+	do
+	;; For each operator, we go over all the pre conditions, and return the first unsatisfied.
+
+	(loop for pc in (operator-preconditions op)
+	      do
+	      ;; check if the pre condition is not satisfied
+	      (if (not (link-exists-for-precondition-p pc op plan))
+		  (return-from pick-precond (cons op pc))
+		  )
+	      )
+
+	)
+  nil 
 )
 
 (defun all-effects (precondition plan)
