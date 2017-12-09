@@ -256,13 +256,29 @@ plus a pointer to the start operator and to the goal operator."
 (defun before-p (operator1 operator2 plan)
   "Operator1 is ordered before operator2 in plan?"
 ;;; perhaps you have an existing function which could help here.
+
+  (reachable (plan-orderings plan) (operator-name operator1) (operator-name operator2)) 
 )
+
 
 
 (defun link-exists-for-precondition-p (precond operator plan)
   "T if there's a link for the precond for a given operator, else nil.
 precond is a predicate."
-)
+
+  (loop for mylink in (plan-links plan)
+	do
+	(if (equalp (operator-uniq operator) (operator-uniq (link-to link)))
+	    ;; we found the link that goes to the operator
+	    ;; Now, we check if the preconditions match
+	    ;; The link selected is from an temp_operator to the operator
+	    (if (equalp precond (link-precond link))
+		(return-from link-exists-for-precondition-p t)
+		)	
+	    )
+	)
+  nil  
+)  
 
 
 (defun operator-threatens-link-p (operator link plan)
