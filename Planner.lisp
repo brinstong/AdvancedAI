@@ -285,7 +285,51 @@ precond is a predicate."
   "T if operator threatens link in plan, because it's not ordered after
 or before the link, and it's got an effect which counters the link's effect."
 ;;; SPEED HINT.  Test the easy tests before the more costly ones.
-)
+
+  ;; return nil if Operator is either on the from or to side of the link.
+  
+  (if (equalp (operator-uniq operator) (operator-uniq (link-from link)))
+      (return-from operator-threatens-link-p nil)
+    )
+  (if (equalp (operator-uniq operator) (operator-uniq (link-to link)))
+      (return-from operator-threatens-link-p nil)
+    )
+
+
+  (let* (
+	 (pc (link-precond link)) ;; precondition of link 
+	 (pc-not (negate pc))
+	 )
+
+    ;; if operator effect is equal to pc-not, that means it may threaten it.
+    (loop for effect in (operator-effects op)
+	  do
+	  (if (equalp effect pc-not)
+	      ;; Now we check if the either operators on either side of link are reachable
+	      ;; The operator may occur either before or after, so we test permutations of from and to
+	      (if (or (reachable (plan-orderings plan) (operator-name operator) (operator-name (link-from link)))
+		      (reachable (plan-orderings plan) (operator-name (link-to link)) (operator-name operator)))
+		  (progn
+		    ;; at least one operator on either side is reachable
+		    (return-from operator-threatens-link-p nil)
+		    )
+		(progn
+		  ;; None of the operators on either side are reachable
+		    (return-from operator-threatens-link-p t)
+		  )
+		  )
+	      )
+
+	  )
+    
+
+    )
+ 	
+	
+	
+  
+  nil
+  )
 
 (defun inconsistent-p (plan)
   "Plan orderings are inconsistent"
