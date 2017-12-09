@@ -319,22 +319,16 @@ or before the link, and it's got an effect which counters the link's effect."
 		  )
 		  )
 	      )
-
 	  )
-    
-
-    )
- 	
-	
-	
-  
+    ) 
   nil
   )
 
 (defun inconsistent-p (plan)
   "Plan orderings are inconsistent"
   ;; hint: cyclic-assoc-list
-)
+  (cyclic-assoc-list (plan-orderings plan))
+  )
 
 (defun pick-precond (plan)
   "Return ONE (operator . precondition) pair in the plan that has not been met yet.
