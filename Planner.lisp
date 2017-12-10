@@ -402,7 +402,7 @@ on those subgoals.  Returns a solved plan, else nil if not solved."
   (if (> current-depth max-depth)
       (return-from select-subgoal nil)
     )
-  (let (oppc (pick-precond plan))
+  (let ((oppc (pick-precond plan)))
     (if oppc
 	(progn
 	  (incf current-depth)
@@ -425,25 +425,25 @@ on them.  Returns a solved plan, else nil if not solved."
   (let ((pc (cdr op-precond-pair))
 	(op (car op-precond-pair))
 	(plan-copy (copy-plan plan))
-	new-plan)
-    (loop for operator in (all-effects pc)
+	)
+    (loop for operator in (all-effects pc plan-copy)
 	  do
-	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth nil))
-	  (if newplan
-	      (return-from choose-operator new-plan)
+	  (let ((new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth nil)))
+	    (if new-plan
+		(return-from choose-operator new-plan)
+	      )
 	    )
 	  )
 
     (loop for operator in (all-operators pc)
 	  do
 	  (add-operator (copy-operator operator) plan-copy)
-	  (setf new-plan (hook-up-operator operator op pc plan-copy (+ 1 current-depth) max-depth t))
-	  (if newplan
-	      (return-from choose-operator new-plan)
+	  (let ((new-plan (hook-up-operator operator op pc plan-copy (+ 1 current-depth) max-depth t)))
+	    (if new-plan
+		(return-from choose-operator new-plan)
+	      )
 	    )
 	  )
-
-    
     )
   nil
   )
@@ -458,10 +458,12 @@ after start and before goal.  Returns the modified copy of the plan."
   ;;; also hint: use PUSHNEW to add stuff but not duplicates
   ;;; Don't use PUSHNEW everywhere instead of PUSH, just where it
   ;;; makes specific sense.
-  (let ((plan-copy (copy-plan plan)))
+  (let* ((plan-copy (copy-plan plan))
+	(start (plan-start plan-copy) )
+	(goal (plan-goal (plan-operators plan-copy))))
 	(push operator plan-copy)
-	(push (cons start operator) (plan-orderings plan-copy))
-	(push (cons operator goal) (plan-orderings plan-copy))
+	(pushnew (cons start operator) (plan-orderings plan-copy))
+	(pushnew (cons operator goal) (plan-orderings plan-copy))
 	(return-from add-operator plan-copy)
 	)
   )
@@ -488,11 +490,12 @@ plan, else nil if not solved."
 	(new-link (make-link :from from :to to :precond precondition)))
     (push new-link (plan-links new-plan))
     (setf new-plan (resolve-threats plan (threats plan (if new-operator-was-added from nil) new-link) current-depth max-depth))
-    (if resolved-plan
+    (if new-plan
 	(return-from hook-up-operator new-plan)
       )
     )
   nil
+  
   )
 
 (defun threats (plan maybe-threatening-operator maybe-threatened-link)
@@ -563,16 +566,16 @@ are copies of the original plan."
 (defun promote (operator link plan)
   "Promotes an operator relative to a link.  Doesn't copy the plan."
 
-  (push (order (make-orderings operator (link-from link)))
-	(plan-orderings plan))
-  plan
-
+  (let ((from-operator-in-link (link-from link)))
+    (push (cons operator from-operator-in-link) (plan-orderings plan))
+    )
   )
 
 (defun demote (operator link plan)
   "Demotes an operator relative to a link.  Doesn't copy the plan."
-  (push (order (make-orderings (link-to link) operator))
-	(plan-orderings plan))
+  (let ((to-operator-in-link (link-to link)))
+    (push (cons to-operator-in-link operator) (plan-orderings plan))
+    )
 )
 
 (defun resolve-threats (plan threats current-depth max-depth)
@@ -964,3 +967,5 @@ doesn't matter really -- but NOT including a goal or start operator")
 ;;;; Here it's also complaining about copy-operator and copy-plan being
 ;;;; redefined, because the structure definition had created them and
 ;;;; I'm doing better copy functions.  That's expected.
+
+;(do-pop)
