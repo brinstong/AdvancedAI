@@ -266,11 +266,11 @@ plus a pointer to the start operator and to the goal operator."
 precond is a predicate."
   (loop for mylink in (plan-links plan)
 	do
-	(if (equalp (operator-uniq operator) (operator-uniq (link-to link)))
+	(if (equalp (operator-uniq operator) (operator-uniq (link-to mylink)))
 	    ;; we found the link that goes to the operator
 	    ;; Now, we check if the preconditions match
 	    ;; The link selected is from an temp_operator to the operator
-	    (if (equalp precond (link-precond link))
+	    (if (equalp precond (link-precond mylink))
 		(return-from link-exists-for-precondition-p t)
 		)	
 	    )
@@ -365,7 +365,7 @@ effects which can achieve this precondition."
     )
   )
 
-
+#|
 					;(let ((xy '()))
 					;  (loop for x in '(a b c d e) do
 					;	(loop for data in '(1 2 3 4 5) do
@@ -379,6 +379,8 @@ effects which can achieve this precondition."
 					;	)
 					; (print xy)
 					;  )
+
+|#
 
 
 (defun all-operators (precondition)
@@ -426,7 +428,7 @@ on them.  Returns a solved plan, else nil if not solved."
 	new-plan)
     (loop for operator in (all-effects pc)
 	  do
-	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth))
+	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth nil))
 	  (if newplan
 	      (return-from choose-operator new-plan)
 	    )
@@ -434,8 +436,8 @@ on them.  Returns a solved plan, else nil if not solved."
 
     (loop for operator in (all-operators pc)
 	  do
-	  (add-operator operator plan-copy)
-	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth))
+	  (add-operator (copy-operator operator) plan-copy)
+	  (setf new-plan (hook-up-operator operator op pc plan-copy (+ 1 current-depth) max-depth t))
 	  (if newplan
 	      (return-from choose-operator new-plan)
 	    )
@@ -456,7 +458,13 @@ after start and before goal.  Returns the modified copy of the plan."
   ;;; also hint: use PUSHNEW to add stuff but not duplicates
   ;;; Don't use PUSHNEW everywhere instead of PUSH, just where it
   ;;; makes specific sense.
-)
+  (let ((plan-copy (copy-plan plan)))
+	(push operator plan-copy)
+	(push (cons start operator) (plan-orderings plan-copy))
+	(push (cons operator goal) (plan-orderings plan-copy))
+	(return-from add-operator plan-copy)
+	)
+  )
 
 (defun hook-up-operator (from to precondition plan
 			            current-depth max-depth
@@ -472,7 +480,20 @@ plan, else nil if not solved."
   ;;; also hint: use PUSHNEW to add stuff but not duplicates  
   ;;; Don't use PUSHNEW everywhere instead of PUSH, just where it
   ;;; makes specific sense.
-)
+
+;  (if (> current-depth max-depth)
+;      (return-from hook-up-operator nil))
+
+  (let (new-plan
+	(new-link (make-link :from from :to to :precond precondition)))
+    (push new-link (plan-links new-plan))
+    (setf new-plan (resolve-threats plan (threats plan (if new-operator-was-added from nil) new-link) current-depth max-depth))
+    (if resolved-plan
+	(return-from hook-up-operator new-plan)
+      )
+    )
+  nil
+  )
 
 (defun threats (plan maybe-threatening-operator maybe-threatened-link)
   "After hooking up an operator, we have two places that we need to check for threats.
@@ -487,8 +508,26 @@ situations you need to check are the ones described in the previous paragraph.
 This function should assume that if MAYBE-THREATENING-OPERATOR is NIL, then no
 operator was added and we don't have to check for its threats.  However, we must
 always check for any operators which threaten MAYBE-THREATENED-LINK."
-)
-
+  (let ((threat '()))
+    ;; 1. checking if new link is threatened by operators in the plan
+    (dolist (operator-in-plan (plan-operators plan))
+      (if (operator-threatens-link-p operator-in-plan maybe-threatened-link plan)
+	  (push (cons operator-in-plan maybe-threatened-link) threat)
+	)
+      )
+    ;; 2. checking if new operator threatens links in plan
+    (if maybe-threatening-operator
+	(progn
+	  (dolist (link-in-plan (plan-links plan))
+	    (if (operator-threatens-link-p maybe-threatening-operator link-in-plan plan)
+		(push (cons maybe-threatening-operator link-in-plan) threat)
+	      )
+	    )
+	  )
+      )
+    threat
+    )
+  )
 
 (defun all-promotion-demotion-plans (plan threats)
   "Returns plans for each combination of promotions and demotions
@@ -498,21 +537,64 @@ are copies of the original plan."
   ;;; Also check out MAPC
   ;;; SPEED HINT.  You might handle the one-threat case specially.
   ;;; In that case you could also check for inconsistency right then and there too.
-)
+
+  (let ((plans (copy-tree '())))
+    (loop for threat-plan in (binary-combinations (length threats)) do
+	  (block my-loop
+		 (let ((new-plan (copy-plan plan)))
+		   (dotimes (x (length threat-plan))
+		     (let ((threat (nth x threats)))
+		       (if (nth x threat-plan)
+			   (promote (car threat) (cdr threat) new-plan)
+			 (demote (car threat) (cdr threat) new-plan))
+		       (if (reachable (plan-orderings new-plan) (car threat) (car threat))
+			   (return-from my-loop nil)
+			 nil)
+		       )
+		     )
+		   (push new-plan plans)
+		   ))
+	  )
+    plans
+    )
+  
+  )
 
 (defun promote (operator link plan)
   "Promotes an operator relative to a link.  Doesn't copy the plan."
-)
+
+  (push (order (make-orderings operator (link-from link)))
+	(plan-orderings plan))
+  plan
+
+  )
 
 (defun demote (operator link plan)
   "Demotes an operator relative to a link.  Doesn't copy the plan."
+  (push (order (make-orderings (link-to link) operator))
+	(plan-orderings plan))
 )
 
 (defun resolve-threats (plan threats current-depth max-depth)
   "Tries all combinations of solutions to all the threats in the plan,
 then recursively calls SELECT-SUBGOAL on them until one returns a
 solved plan.  Returns the solved plan, else nil if no solved plan."
-)
+  (if (= (length threats) 0)
+      (let ((new-plan (select-subgoal plan current-depth max-depth)))
+	(return-from resolve-threats new-plan)
+	(return-from resolve-threats nil)
+	)	
+    )
+  (loop for some-plan in (all-promotion-demotion-plans plan threats) do
+	(let ((new-plan (select-subgoal some-plan current-depth max-depth)))
+	  (if new-plan
+	      (return-from resolve-threats new-plan)
+	    nil
+	    )
+	  )
+	)
+  nil
+  )
 
 
 
