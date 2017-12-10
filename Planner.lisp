@@ -295,7 +295,7 @@ or before the link, and it's got an effect which counters the link's effect."
 	 (pc-not (negate pc))
 	 )
     ;; if operator effect is equal to pc-not, that means it may threaten it.
-    (loop for effect in (operator-effects op)
+    (loop for effect in (operator-effects operator)
 	  do
 	  (if (equalp effect pc-not)
 	      ;; Now we check if the either operators on either side of link are reachable
@@ -356,7 +356,7 @@ effects which can achieve this precondition."
 		do
 		(if (equalp precondition pc)
 		  (progn
-		    (sets ops (append ops (list op)))
+		    (setf ops (append ops (list op)))
 		    (return)
 		    )
 		  )
@@ -386,11 +386,8 @@ effects which can achieve this precondition."
 an effect that can achieve this precondition."
   ;; hint: there's short, efficient way to do this, and a long,
   ;; grotesquely inefficient way.  Don't do the inefficient way.
-
-  
-  
-
-  )
+  (gethash precondition *operators-for-precond*)
+   )
 
 (defun select-subgoal (plan current-depth max-depth)
   "For all possible subgoals, recursively calls choose-operator
@@ -400,15 +397,54 @@ on those subgoals.  Returns a solved plan, else nil if not solved."
     ;;; you just pick one arbitrarily and that's all.  Note that the
     ;;; algorithm says "pick a plan step...", rather than "CHOOSE a
     ;;; plan step....".  This makes the algorithm much faster.  
-)
-
+  (if (> current-depth max-depth)
+      (return-from select-subgoal nil)
+    )
+  (let (oppc (pick-precond plan))
+    (if oppc
+	(progn
+	  (incf current-depth)
+	  (return-from select-subgoal (choose-operator oppc plan current-depth max-depth))
+	  )
+      (return-from select-subgoal nil)
+      )
+    )
+  nil
+  )
 
 (defun choose-operator (op-precond-pair plan current-depth max-depth)
   "For a given (operator . precondition) pair, recursively call
 hook-up-operator for all possible operators in the plan.  If that
 doesn't work, recursively call add operators and call hook-up-operators
 on them.  Returns a solved plan, else nil if not solved."
-)
+
+  ;; Not sure about this function
+  
+  (let ((pc (cdr op-precond-pair))
+	(op (car op-precond-pair))
+	(plan-copy (copy-plan plan))
+	new-plan)
+    (loop for operator in (all-effects pc)
+	  do
+	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth))
+	  (if newplan
+	      (return-from choose-operator new-plan)
+	    )
+	  )
+
+    (loop for operator in (all-operators pc)
+	  do
+	  (add-operator operator plan-copy)
+	  (setf new-plan (hook-up-operator operator op pc plan-copy current-depth max-depth))
+	  (if newplan
+	      (return-from choose-operator new-plan)
+	    )
+	  )
+
+    
+    )
+  nil
+  )
 
 (defun add-operator (operator plan)
   "Given an OPERATOR and a PLAN makes a copy of the plan [the
