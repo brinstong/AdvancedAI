@@ -585,8 +585,8 @@ solved plan.  Returns the solved plan, else nil if no solved plan."
 	(return-from resolve-threats nil)
 	)	
     )
-  (loop for some-plan in (all-promotion-demotion-plans plan threats) do
-	(let ((new-plan (select-subgoal some-plan current-depth max-depth)))
+  (loop for plan-sel in (all-promotion-demotion-plans plan threats) do
+	(let ((new-plan (select-subgoal plan-sel current-depth max-depth)))
 	  (if new-plan
 	      (return-from resolve-threats new-plan)
 	    nil
