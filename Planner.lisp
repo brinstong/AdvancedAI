@@ -256,7 +256,6 @@ plus a pointer to the start operator and to the goal operator."
 (defun before-p (operator1 operator2 plan)
   "Operator1 is ordered before operator2 in plan?"
 ;;; perhaps you have an existing function which could help here.
-
   (reachable (plan-orderings plan) (operator-name operator1) (operator-name operator2)) 
 )
 
@@ -265,7 +264,6 @@ plus a pointer to the start operator and to the goal operator."
 (defun link-exists-for-precondition-p (precond operator plan)
   "T if there's a link for the precond for a given operator, else nil.
 precond is a predicate."
-
   (loop for mylink in (plan-links plan)
 	do
 	(if (equalp (operator-uniq operator) (operator-uniq (link-to link)))
@@ -285,22 +283,17 @@ precond is a predicate."
   "T if operator threatens link in plan, because it's not ordered after
 or before the link, and it's got an effect which counters the link's effect."
 ;;; SPEED HINT.  Test the easy tests before the more costly ones.
-
   ;; return nil if Operator is either on the from or to side of the link.
-  
   (if (equalp (operator-uniq operator) (operator-uniq (link-from link)))
       (return-from operator-threatens-link-p nil)
     )
   (if (equalp (operator-uniq operator) (operator-uniq (link-to link)))
       (return-from operator-threatens-link-p nil)
     )
-
-
   (let* (
 	 (pc (link-precond link)) ;; precondition of link 
 	 (pc-not (negate pc))
 	 )
-
     ;; if operator effect is equal to pc-not, that means it may threaten it.
     (loop for effect in (operator-effects op)
 	  do
@@ -337,12 +330,9 @@ If there is no such pair, return nil"
 ;;; to pick a smart one.  Perhaps you might select the precondition
 ;;; which has the fewest possible operators which solve it, so it fails
 ;;; the fastest if it's wrong.
-
-
   (loop for op in (plan-operators plan)
 	do
 	;; For each operator, we go over all the pre conditions, and return the first unsatisfied.
-
 	(loop for pc in (operator-preconditions op)
 	      do
 	      ;; check if the pre condition is not satisfied
@@ -350,7 +340,6 @@ If there is no such pair, return nil"
 		  (return-from pick-precond (cons op pc))
 		  )
 	      )
-
 	)
   nil 
 )
@@ -360,14 +349,48 @@ If there is no such pair, return nil"
 effects which can achieve this precondition."
   ;; hint: there's short, efficient way to do this, and a long,
   ;; grotesquely inefficient way.  Don't do the inefficient way.
-)
+  (let ((ops '()))
+    (loop for op in (plan-operators plan)
+	  do
+	  (loop for pc in (operator-preconditions op)
+		do
+		(if (equalp precondition pc)
+		  (progn
+		    (sets ops (append ops (list op)))
+		    (return)
+		    )
+		  )
+		)
+	  )
+    )
+  )
+
+
+					;(let ((xy '()))
+					;  (loop for x in '(a b c d e) do
+					;	(loop for data in '(1 2 3 4 5) do
+					;	      (if (< data 3)
+					;		  (progn
+					;		    (setf xy (append xy (list x)))
+					;		    (return)
+					;		    )
+					;		  )     
+					;	      )
+					;	)
+					; (print xy)
+					;  )
+
 
 (defun all-operators (precondition)
   "Given a precondition, returns all list of ALL operator templates which have
 an effect that can achieve this precondition."
   ;; hint: there's short, efficient way to do this, and a long,
   ;; grotesquely inefficient way.  Don't do the inefficient way.
-)
+
+  
+  
+
+  )
 
 (defun select-subgoal (plan current-depth max-depth)
   "For all possible subgoals, recursively calls choose-operator
